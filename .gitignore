@@ -1,3 +1,6 @@
 setsecrets.sh
 .vscode
-
+.vagrant
+**/wpa_supplicant.conf
+**/playbook.retry
+**/hosts

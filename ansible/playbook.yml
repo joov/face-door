@@ -1,0 +1,10 @@
+---
+
+- name: Ansible Playbook for configuring Raspberry Pi
+
+  hosts: rpiservers
+  roles:
+    # - pi
+    - face
+  remote_user: pi
+  become: yes

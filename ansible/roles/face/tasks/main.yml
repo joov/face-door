@@ -1,0 +1,95 @@
+---
+- set_fact:
+    real_ansible_host: "{{ ansible_host }}"
+
+- name: 'Reconfigure swap file'
+  lineinfile:
+    path: /etc/dphys-swapfile
+    regexp: '^CONF_SWAPSIZE='
+    line: 'CONF_SWAPSIZE=1024'
+
+- name: 'Install dlib prereqs'
+  apt: name="{{item}}" state=installed
+  with_items:
+    - build-essential
+    - cmake
+    - gfortran
+    - git
+    - wget
+    - curl
+    - graphicsmagick
+    - libgraphicsmagick1-dev
+    - libatlas-dev
+    - libavcodec-dev
+    - libavformat-dev
+    - libboost-all-dev
+    - libgtk2.0-dev
+    - libjpeg-dev
+    - liblapack-dev
+    - libswscale-dev
+    - pkg-config
+    - python3-dev
+    - python3-numpy
+    - python3-pip
+    - zip
+    - python3-picamera
+
+- name: Rmove unused packages from cahe
+  apt:
+    autoclean: yes
+
+
+- name: 'Reboot'
+  shell: sleep 2 && reboot
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+- name: "Wait for Raspberry PI to come back"
+  local_action: wait_for host={{ real_ansible_host }} port=22 state=started delay=10
+  become: false
+
+- name: 'Install camera with array support'
+  command: pip3 install --upgrade picamera[array]
+  become: yes
+
+- name: 'Download dlib'
+  git:
+    repo: https://github.com/davisking/dlib.git
+    dest: /home/pi/git/dlib
+    version: v19.4
+
+- name: compile dlib
+  command: python3 setup.py install
+  args:
+    chdir: /home/pi/git/dlib
+  become: yes
+
+- name: 'Install face-recoginition'
+  command: pip3 install face_recognition
+
+
+- name: 'Revert swap file'
+  lineinfile:
+    path: /etc/dphys-swapfile
+    regexp: '^CONF_SWAPSIZE='
+    line: 'CONF_SWAPSIZE=100'
+
+
+- name: 'Reboot2'
+  shell: sleep 2 && reboot
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+- name: "Wait for Raspberry PI to come back2"
+  local_action: wait_for host={{ real_ansible_host }} port=22 state=started delay=10
+  become: false
+
+- name: Creates directory for face_recognition
+  file: path=/home/pi/git state=directory
+
+- name: 'Download face recognition examples'
+  git: 
+    repo: https://github.com/ageitgey/face_recognition.git
+    dest: /home/pi/git/face_recognition

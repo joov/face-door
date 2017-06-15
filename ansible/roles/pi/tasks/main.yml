@@ -1,0 +1,58 @@
+---
+- set_fact:
+    real_ansible_host: "{{ ansible_host }}"
+
+- name: Include vars of stuff.yml into the 'stuff' variable (2.2).
+  include_vars:
+    file: wlan.yml
+    name: wlan
+
+- name: Expand filesystem to fill disk
+  command: raspi-config --expand-rootfs
+  become: yes
+
+
+- name: 'Enable camera startx'
+  lineinfile:
+    path: /boot/config.txt
+    line: 'startx 1'
+    state: present
+
+- name: 'Enable camera gpu'
+  lineinfile:
+    path: /boot/config.txt
+    line: 'gpu_mem 128'
+    state: present
+
+- name: 'Configure WIFI'
+  copy: src=./wpa_supplicant.conf dest=/etc/wpa_supplicant/wpa_supplicant.conf mode=0600
+
+- name: 'Disable dhcpd for wlan0'
+  lineinfile:
+    path: /etc/dhcpcd.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+  with_items:
+    - { regexp: '^#interface wlan0', line: 'interface wlan0' }
+    - { regexp: '^static ip_address=', line: 'static ip_address={{ wlan.ip_address }}' }
+    - { regexp: '^static routers=', line: 'static routers={{ wlan.routers }}' }
+
+- name: 'Disable power management for eidmax wlan adapter'
+  copy: src=./8192cu.conf dest=/etc/modprobe.d/8192cu.conf
+
+- name: 'Reboot'
+  shell: sleep 2 && reboot
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+- name: "Wait for Raspberry PI to come back"
+  local_action: wait_for host={{ real_ansible_host }} port=22 state=started delay=10
+  become: false
+  
+- name: 'Update APT package cache'
+  action: apt update_cache=yes
+
+- name: 'Upgrade APT to the lastest packages'
+  action: apt upgrade=safe
+
