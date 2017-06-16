@@ -4,3 +4,4 @@ setsecrets.sh
 **/wpa_supplicant.conf
 **/playbook.retry
 **/hosts
+**/wlan.yml

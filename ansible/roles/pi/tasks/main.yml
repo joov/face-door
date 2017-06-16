@@ -34,7 +34,7 @@
     line: "{{ item.line }}"
   with_items:
     - { regexp: '^#interface wlan0', line: 'interface wlan0' }
-    - { regexp: '^static ip_address=', line: 'static ip_address={{ wlan.ip_address }}' }
+    - { regexp: '^static ip_address=', line: 'static ip_address={{ wlan.ip_address }}/24' }
     - { regexp: '^static routers=', line: 'static routers={{ wlan.routers }}' }
 
 - name: 'Disable power management for eidmax wlan adapter'
