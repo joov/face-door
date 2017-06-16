@@ -4,7 +4,7 @@
 
   hosts: rpiservers
   roles:
-    # - pi
+    - pi
     - face
   remote_user: pi
   become: yes
