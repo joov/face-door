@@ -18,7 +18,7 @@
 * change to directory `vagrant/ansible`
 
 ### Ansible-based installation
-* Excecute ansible-playbook with command `ansible-playbook playbook.yml -i hosts --ask-pas`
+* Excecute ansible-playbook with command `ansible-playbook playbook.yml -i hosts --ask-pass`
 * role pi does basic rpi installation. Please adapt:
     * hosts
     * wpa_supplicant.conf
@@ -33,11 +33,14 @@ cd ./face_recognition/examples
 python3 facerec_on_raspberry_pi.py
 ```
 
-
+## Ask Interface
+* Get Data changes since epoch 1497675668: `wget --header="Accept: application/json" --auth-no-challenge --http-user=admin --http-password=password http://127.0.0.1:8083/ZWaveAPI/Data/1497675668`
 
 ## Links
 * [Razberry](http://razberry.z-wave.me/)
 * [face-recoginition](https://github.com/ageitgey/face_recognition)
 * [Opencv and python](http://www.pyimagesearch.com/2015/06/01/home-surveillance-and-motion-detection-with-the-raspberry-pi-python-and-opencv/)
 * [Face recognition](http://rpihome.blogspot.de/2015/03/face-detection-with-raspberry-pi.html)
+* [dlib](https://github.com/davisking)
+* [opencsv](https://github.com/Itseez/opencv)
 

@@ -34,9 +34,60 @@
     - zip
     - python3-picamera
 
-- name: Rmove unused packages from cahe
+- name: 'Install opencv prereqs'
+  apt: name="{{item}}" state=installed
+  with_items:
+    - libjpeg8-dev 
+    - libtiff4
+    - libjasper-dev
+    - libpng12-dev
+    - libv4l-dev
+    - libatlas-base-dev
+
+- name: 'clone opencv'
+  git:
+    repo: https://github.com/Itseez/opencv.git
+    dest: /home/pi/git/opencv
+    version: 3.2.0
+
+- name: 'clone opencv-contrib'
+  git:
+    repo: https://github.com/Itseez/opencv_contrib.git
+    dest: /home/pi/git/opencv_contrib
+    version: 3.2.0
+
+- name: 'opencv pre-build'
+  command: cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D INSTALL_C_EXAMPLES=ON \
+    -D OPENCV_EXTRA_MODULES_PATH=/home/pi/git/opencv_contrib/modules \
+    -D BUILD_EXAMPLES=ON .
+  args:
+    chdir: /home/pi/git/opencv
+
+- name: 'build opencv'
+  make:
+    chdir: /home/pi/git/opencv
+    params:
+      '-j4'
+    become: yes
+
+- name: 'install opencv'
+  make:
+    chdir: /home/pi/git/opencv
+    target: install
+  become: yes
+
+
+- name: reconfigure ld
+  command: ldconfig
+  become: yes
+    
+- name: Rmove unused packages from cache
   apt:
     autoclean: yes
+
 
 
 - name: 'Reboot'
