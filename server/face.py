@@ -72,7 +72,7 @@ def write_image(img):
     global image_count
     unknown_path = os.path.abspath(os.path.join('unknown'))
 
-    cv2.imwrite(unknown_path+str(image_count)+'.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+    cv2.imwrite(unknown_path+'/'+str(image_count)+'.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
 
     image_count += 1
 
