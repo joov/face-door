@@ -4,8 +4,8 @@
 
 - name: Include vars of stuff.yml into the 'stuff' variable (2.2).
   include_vars:
-    file: wlan.yml
-    name: wlan
+    file: ip.yml
+    name: ip
 
 - name: Expand filesystem to fill disk
   command: raspi-config --expand-rootfs
@@ -27,14 +27,18 @@
 - name: 'Configure WIFI'
   copy: src=./wpa_supplicant.conf dest=/etc/wpa_supplicant/wpa_supplicant.conf mode=0600
 
-- name: 'Disable dhcpd for wlan0'
+- name: 'Disable dhcpd for wlan0 and etho'
+  copy: src=./dhcpcd.conf dest=/etc/dhcpcd.conf
   lineinfile:
     path: /etc/dhcpcd.conf
     regexp: "{{ item.regexp }}"
     line: "{{ item.line }}"
   with_items:
     - { regexp: '^#interface wlan0', line: 'interface wlan0' }
-    - { regexp: '^static ip_address=', line: 'static ip_address={{ wlan.ip_address }}/24' }
+    - { regexp: '^static ip_address=', line: 'static ip_address={{ ip.wlan_address }}/24' }
+    - { regexp: '^static routers=', line: 'static routers={{ wlan.routers }}' }
+    - { regexp: '^#interface eth0', line: 'interface wlan0' }
+    - { regexp: '^static ip_address=', line: 'static ip_address={{ ip.eth_address }}/24' }
     - { regexp: '^static routers=', line: 'static routers={{ wlan.routers }}' }
 
 - name: 'Disable power management for eidmax wlan adapter'
