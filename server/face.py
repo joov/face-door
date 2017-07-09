@@ -23,31 +23,31 @@ image_count=0
 
 
 @app.route('/start', methods=['GET'])
-def start_recording()
+def start_recording():
     global is_recording
     is_recording = True
     return 'Started'
 
 
 @app.route('/stop', methods=['GET'])
-def stop_recording()
+def stop_recording():
     global is_recording
     is_recording = False
     return 'Stopped'
 
 @app.route('/known', methods=['GET'])
-def copy_known()
+def copy_known():
     return 'TBD'
 
-def find_known_faces()
+def find_known_faces():
     global known_faces
     known_path = os.path.abspath(os.path.join('known'))
 
     # Load a sample picture and learn how to recognize it.
     print("Loading known face image(s)")
 
-    for file in os.listdir(known_path)
-        if !file.endswith('.jpg'):
+    for file in os.listdir(known_path):
+        if not file.endswith('.jpg'):
             continue
         
         image = face_recognition.load_image_file(file)
@@ -56,19 +56,19 @@ def find_known_faces()
         known_faces[file] = face_encoding
         
 
-def get_image_count()
+def get_image_count():
     global image_count
     unknown_path = os.path.abspath(os.path.join('unknown'))
 
-    for file in os.listdir(unknown_path)
-        if !file.endswith('.jpg'):
+    for file in os.listdir(unknown_path):
+        if not file.endswith('.jpg'):
             continue
         
         num = int(file)
         if num > image_count:
             image_count = num+1
 
-def write_image(img)
+def write_image(img):
     global image_count
     unknown_path = os.path.abspath(os.path.join('unknown'))
 
@@ -77,7 +77,7 @@ def write_image(img)
     image_count += 1
 
 
-def init()
+def init():
     # Get a reference to the Raspberry Pi camera.
     # If this fails, make sure you have a camera connected to the RPi and that you
     # enabled your camera in raspi-config and rebooted first.
@@ -94,9 +94,9 @@ def init()
     get_image_count()
 
 
-def do_record()
+def do_record():
     while True:
-        if !is_recording:
+        if not is_recording:
             print("Sleeping")
             time.sleep(1)
             continue
@@ -123,7 +123,7 @@ def do_record()
         # Loop over each face found in the frame to see if it's someone we know.
         for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
 
-            for known in known_faces.keys
+            for known in known_faces.keys:
                 # See if the face is a match for the known face(s)
                 match = face_recognition.compare_faces(known_faces[known], face_encoding)
                 if match[0]:
