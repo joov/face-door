@@ -3,7 +3,7 @@
 # To be used with zway home automation
 
 
-import os, sys, time
+import os, sys, time, re
 lib_path = os.path.abspath(os.path.join('..','..','face_recognition'))
 sys.path.append(lib_path)
 import face_recognition
@@ -64,7 +64,7 @@ def get_image_count():
         if not file.endswith('.jpg'):
             continue
         
-        num = int(file)
+        num = int(re.findall(r'\d+',file)[0])
         if num > image_count:
             image_count = num+1
 

@@ -5,3 +5,5 @@ setsecrets.sh
 **/playbook.retry
 **/hosts
 **/dhcpcd.conf
+**/known/*.jpg
+**/unknown/*.jpg
