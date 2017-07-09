@@ -3,7 +3,7 @@
 # To be used with zway home automation
 
 
-import os, sys
+import os, sys, time
 lib_path = os.path.abspath(os.path.join('..','..','face_recognition'))
 sys.path.append(lib_path)
 import face_recognition
@@ -24,12 +24,14 @@ image_count=0
 
 @app.route('/start', methods=['GET'])
 def start_recording():
+    global is_recording
     is_recording = True
     return 'Started'
 
 
 @app.route('/stop', methods=['GET'])
 def stop_recording():
+    global is_recording
     is_recording = False
     return 'Stopped'
 
@@ -38,6 +40,7 @@ def copy_known():
     return 'TBD'
 
 def find_known_faces():
+    global known_faces
     known_path = os.path.abspath(os.path.join('known'))
 
     # Load a sample picture and learn how to recognize it.
@@ -54,6 +57,7 @@ def find_known_faces():
         
 
 def get_image_count():
+    global image_count
     unknown_path = os.path.abspath(os.path.join('unknown'))
 
     for file in os.listdir(unknown_path):
@@ -88,6 +92,7 @@ def init():
 
 
 def do_record():
+    global is_recording, known_faces, image_count, camera
     while True:
         if not is_recording:
             print("Sleeping")
@@ -114,16 +119,20 @@ def do_record():
         # Loop over each face found in the frame to see if it's someone we know.
         for (top, right, bottom, left), face_encoding in zip(face_locations, face_encodings):
 
-            for known in known_faces.keys:
+            found_match = False
+            for known in known_faces.keys():
                 # See if the face is a match for the known face(s)
                 match = face_recognition.compare_faces(known_faces[known], face_encoding)
                 if match[0]:
-                    print("I see {}!".format(knwon))
-                else:
-                    print("Found unknown Image")
-                    img = output[top:right, bottom:left]
-                    write_image(img)
-                    # TODO: Send Image to Messenger
+                    print("I see {}!".format(known))
+                    found_match = True
+                    break
+
+            if found_match == False:
+                print("Found unknown Image")
+                img = output[top:right, bottom:left]
+                write_image(img)
+                # TODO: Send Image to Messenger
 
 
 if __name__ == "__main__":
