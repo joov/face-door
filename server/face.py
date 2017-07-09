@@ -11,7 +11,7 @@ import picamera
 import cv2
 import numpy as np
 from flask import Flask, jsonify, request, redirect
-from thread import start_new_thread
+import threading
 
 app = Flask(__name__)
 
@@ -138,6 +138,8 @@ def do_record():
 if __name__ == "__main__":
     init
     is_recording = False
-    start_new_thread(do_record)
+    t = threading.Thread(target=do_record)
+    t.daemon = True
+    t.start
 
     app.run(host='0.0.0.0', port=5001, debug=True)
