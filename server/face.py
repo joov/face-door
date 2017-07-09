@@ -69,6 +69,7 @@ def get_image_count():
             image_count = num+1
 
 def write_image(img):
+    global image_count
     unknown_path = os.path.abspath(os.path.join('unknown'))
 
     cv2.imwrite(unknown_path+str(image_count)+'.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
@@ -130,7 +131,7 @@ def do_record():
 
             if found_match == False:
                 print("Found unknown Image")
-                img = output[top:right, bottom:left]
+                img = output[left:top, right:bottom]
                 write_image(img)
                 # TODO: Send Image to Messenger
 
@@ -142,4 +143,4 @@ if __name__ == "__main__":
     t.daemon = True
     t.start()
 
-    app.run(host='0.0.0.0', port=5001, debug=True)
+    app.run(host='0.0.0.0', port=5001, debug=False)
