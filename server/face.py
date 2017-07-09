@@ -131,7 +131,7 @@ def do_record():
 
             if found_match == False:
                 print("Found unknown Image")
-                img = output[left:top, right:bottom]
+                img = output[top:bottom, left:right]
                 write_image(img)
                 # TODO: Send Image to Messenger
 
