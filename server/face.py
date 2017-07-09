@@ -50,7 +50,7 @@ def find_known_faces():
         if not file.endswith('.jpg'):
             continue
         
-        image = face_recognition.load_image_file(file)
+        image = face_recognition.load_image_file(known_path+'/'+file)
         face_encoding = face_recognition.face_encodings(image)[0]
 
         known_faces[file] = face_encoding
