@@ -139,7 +139,8 @@ def do_record():
 
             if found_match == False:
                 print("Found unknown Image")
-                img = output[top:bottom, left:right]
+                img = output[max(top-20,0):min(bottom+20,240), 
+                        max(left-20,0):min(right+20,320)]
                 write_image(img)
                 # TODO: Send Image to Messenger
 
