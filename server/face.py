@@ -58,7 +58,7 @@ def find_known_faces():
             print("Unexpected error:", sys.exc_info()[0])
 
         face_encodings = face_recognition.face_encodings(image)
-        if face_encodings.len == 0:
+        if len (face_encodings) == 0:
             print("No face found in known face {}").format(file)
 
         known_faces[file] = face_encodings[0]
