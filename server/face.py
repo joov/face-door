@@ -40,7 +40,7 @@ def copy_known():
     return 'TBD'
 
 def find_known_faces():
-    global known_faces
+    global known_faces = {}
     known_path = os.path.abspath(os.path.join('known'))
 
     # Load a sample picture and learn how to recognize it.
@@ -60,6 +60,9 @@ def find_known_faces():
         face_encodings = face_recognition.face_encodings(image)
         if len (face_encodings) == 0:
             print("No face found in known face {}".format(file))
+
+        else:
+            print("Found {0} encodings in file {1}".format(len(face_encodings), file))
 
         known_faces[file] = face_encodings[0]
         
@@ -131,7 +134,7 @@ def do_record():
             found_match = False
             for known in known_faces.keys():
                 # See if the face is a match for the known face(s)
-                match = face_recognition.compare_faces(known_faces[known], face_encoding)
+                match = face_recognition.compare_faces([known_faces[known]], face_encoding)
                 if match[0]:
                     print("I see {}!".format(known))
                     found_match = True
