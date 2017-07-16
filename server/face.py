@@ -130,7 +130,7 @@ def do_record():
             for known in known_faces.keys():
                 # See if the face is a match for the known face(s)
                 match = face_recognition.compare_faces(known_faces[known], face_encoding)
-                if match[0]:
+                if match:
                     print("I see {}!".format(known))
                     found_match = True
                     break
