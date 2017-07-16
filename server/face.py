@@ -15,9 +15,11 @@ import threading
 
 app = Flask(__name__)
 
+SIZE_X=640
+SIZE_Y=480
 is_recording = False
 camera = PiCamera()
-output = np.empty((240, 320, 3), dtype=np.uint8)
+output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 known_faces = {}
 image_count=0
 
@@ -90,10 +92,11 @@ def write_image(img):
 
 
 def init():
+    global SIZE_X, SIZE_Y
     # Get a reference to the Raspberry Pi camera.
     # If this fails, make sure you have a camera connected to the RPi and that you
     # enabled your camera in raspi-config and rebooted first.
-    camera.resolution = (320, 240)
+    camera.resolution = (SIZE_X, SIZE_Y)
 
     # Load a sample picture and learn how to recognize it.
     # print("Loading known face image(s)")
@@ -105,7 +108,7 @@ def init():
 
 
 def do_record():
-    global is_recording, known_faces, image_count, camera
+    global is_recording, known_faces, image_count, camera,SIZE_X,SIZE_Y
     while True:
         if not is_recording:
             print("Sleeping")
@@ -143,8 +146,8 @@ def do_record():
 
             if found_match == False:
                 print("Found unknown Image {0}:{1} {2}:{3}".format(top,bottom,left,right))
-                img = output[max(top-20,0):min(bottom+20,240), 
-                        max(left-20,0):min(right+20,320)]
+                img = output[max(top-40,0):min(bottom+20,SIZE_Y), 
+                        max(left-20,0):min(right+20,SIZE_X)]
                 write_image(img)
                 # TODO: Send Image to Messenger
 
