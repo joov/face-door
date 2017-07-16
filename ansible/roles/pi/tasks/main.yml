@@ -24,22 +24,27 @@
     line: 'gpu_mem 128'
     state: present
 
-- name: 'Configure WIFI'
+- name: 'Configure WIFI access'
   copy: src=./wpa_supplicant.conf dest=/etc/wpa_supplicant/wpa_supplicant.conf mode=0600
-
-- name: 'Disable dhcpd for wlan0 and etho'
-  copy: src=./dhcpcd.conf dest=/etc/dhcpcd.conf
+-name: 'Configure WIFI interfaces'
   lineinfile:
-    path: /etc/dhcpcd.conf
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-  with_items:
-    - { regexp: '^#interface wlan0', line: 'interface wlan0' }
-    - { regexp: '^static ip_address=', line: 'static ip_address={{ ip.wlan_address }}/24' }
-    - { regexp: '^static routers=', line: 'static routers={{ wlan.routers }}' }
-    - { regexp: '^#interface eth0', line: 'interface wlan0' }
-    - { regexp: '^static ip_address=', line: 'static ip_address={{ ip.eth_address }}/24' }
-    - { regexp: '^static routers=', line: 'static routers={{ wlan.routers }}' }
+    path: /etc/network/interfaces
+    line: post-up iw dev wlan0 set power_save off
+    insertafter: iface wlan0 inet static
+
+- name: 'Disable dhcpd for wlan0 and eth0'
+  copy: src=./dhcpcd.conf dest=/etc/dhcpcd.conf
+  # lineinfile:
+  #   path: /etc/dhcpcd.conf
+  #   regexp: "{{ item.regexp }}"
+  #   line: "{{ item.line }}"
+  # with_items:
+  #   - { regexp: '^#interface wlan0', line: 'interface wlan0' }
+  #   - { regexp: '^static ip_address=', line: 'static ip_address={{ ip.wlan_address }}/24' }
+  #   - { regexp: '^static routers=', line: 'static routers={{ wlan.routers }}' }
+  #   - { regexp: '^#interface eth0', line: 'interface wlan0' }
+  #   - { regexp: '^static ip_address=', line: 'static ip_address={{ ip.eth_address }}/24' }
+  #   - { regexp: '^static routers=', line: 'static routers={{ wlan.routers }}' }
 
 - name: 'Disable power management for eidmax wlan adapter'
   copy: src=./8192cu.conf dest=/etc/modprobe.d/8192cu.conf
