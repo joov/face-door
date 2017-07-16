@@ -44,7 +44,7 @@ def find_known_faces():
     known_path = os.path.abspath(os.path.join('known'))
 
     # Load a sample picture and learn how to recognize it.
-    print("Loading known face image(s)")
+    print("Loading known face image(s) from {0}".format(known_path))
 
     for file in os.listdir(known_path):
         if not file.endswith('.jpg'):
