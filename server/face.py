@@ -142,7 +142,7 @@ def do_record():
                     break
 
             if found_match == False:
-                print("Found unknown Image {0}:{1} {2}:{3}",format(top,bottom,left,right))
+                print("Found unknown Image {0}:{1} {2}:{3}".format(top,bottom,left,right))
                 img = output[max(top-20,0):min(bottom+20,240), 
                         max(left-20,0):min(right+20,320)]
                 write_image(img)
