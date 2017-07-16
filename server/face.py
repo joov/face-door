@@ -40,7 +40,8 @@ def copy_known():
     return 'TBD'
 
 def find_known_faces():
-    global known_faces = {}
+    global known_faces 
+    known_face = {}
     known_path = os.path.abspath(os.path.join('known'))
 
     # Load a sample picture and learn how to recognize it.
