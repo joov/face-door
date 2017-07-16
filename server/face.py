@@ -51,9 +51,9 @@ def find_known_faces():
             continue
         
         print("Path {}".format(known_path+'/'+file))
-        try
+        try:
             image = face_recognition.load_image_file(known_path+'/'+file)
-            
+
         except Exception,e:
             print(str(e))
 
