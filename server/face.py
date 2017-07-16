@@ -59,7 +59,7 @@ def find_known_faces():
 
         face_encodings = face_recognition.face_encodings(image)
         if len (face_encodings) == 0:
-            print("No face found in known face {}").format(file)
+            print("No face found in known face {}".format(file))
 
         known_faces[file] = face_encodings[0]
         
