@@ -54,8 +54,8 @@ def find_known_faces():
         try:
             image = face_recognition.load_image_file(known_path+'/'+file)
 
-        except Exception,e:
-            print(str(e))
+        except BaseException:
+            print("Unexpected error:", sys.exc_info()[0])
 
         face_encoding = face_recognition.face_encodings(image)[0]
 
