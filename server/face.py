@@ -51,7 +51,12 @@ def find_known_faces():
             continue
         
         print("Path {}".format(known_path+'/'+file))
-        image = face_recognition.load_image_file(known_path+'/'+file)
+        try
+            image = face_recognition.load_image_file(known_path+'/'+file)
+            
+        except Exception,e:
+            print(str(e))
+
         face_encoding = face_recognition.face_encodings(image)[0]
 
         known_faces[file] = face_encoding
