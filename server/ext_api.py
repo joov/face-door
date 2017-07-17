@@ -1,4 +1,4 @@
-import twitter
+import Api from twitter
 
 class ExtApi(Api):
 
