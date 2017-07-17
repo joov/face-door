@@ -18,9 +18,9 @@ def get_api():
 
 def get_other_user():
     if not hasattr(get_other_user, 'name'):
-        file = open('secrets', 'r')
+        file = open(os.path.abspath(os.path.join('secrets.yml'), 'r')
 
-        secrets = yaml.load_all(file)
+        secrets = yaml.load(file)
         name = secrets['Other_User']
 
     return name
