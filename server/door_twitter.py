@@ -9,6 +9,7 @@ def get_api():
 
         secrets = yaml.load_all(file)
 
+    print (secrets['Consumer_Key'])
     api = ext_api.ExtApi(consumer_key=secrets['Consumer_Key'],
                       consumer_secret=secrets['Consumer_Secret'],
                       access_token_key=secrets['Access_Token'],
