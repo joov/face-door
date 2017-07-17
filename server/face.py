@@ -12,7 +12,7 @@ import cv2
 import numpy as np
 from flask import Flask, jsonify, request, redirect
 import threading
-import send_message from door_twitter
+import door_twitter as door_twitter
 
 app = Flask(__name__)
 
@@ -47,7 +47,7 @@ def send_twitter_alarm():
     if message == None:
         message = 'Unknown event'
 
-    t = threading.Thread(target=send_message, 
+    t = threading.Thread(target=door_twitter.send_message, 
                          args=[message, None])
     t.daemon = True
     t.start()
