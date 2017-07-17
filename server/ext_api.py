@@ -19,7 +19,7 @@ class ExtApi(Api):
           A twitter.DirectMessage instance representing the message posted
         """
         url = '%s/direct_messages/new.json' % self.base_url
-        data = {'text': text
+        data = {'text': text,
                 "attachment": {
                     "type": "media",
                     "media": {
