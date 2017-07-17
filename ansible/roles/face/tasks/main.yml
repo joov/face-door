@@ -108,6 +108,10 @@
  command: pip3 install flask
  become: yes
 
+- name: 'Install twitter api'
+  command: pip3 install python-twitter
+  become: yes
+
 - name: 'Download dlib'
   git:
     repo: https://github.com/davisking/dlib.git

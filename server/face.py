@@ -12,6 +12,7 @@ import cv2
 import numpy as np
 from flask import Flask, jsonify, request, redirect
 import threading
+import door_twitter
 
 app = Flask(__name__)
 
@@ -36,6 +37,14 @@ def stop_recording():
     global is_recording
     is_recording = False
     return 'Stopped'
+
+@app.route('/alarm', methods=['GET'])
+def send_twitter_alarm
+    t = threading.Thread(target=send_message, 
+                         args=['Door Wintergarten opened', None])
+    t.daemon = True
+    t.start()
+
 
 @app.route('/known', methods=['GET'])
 def copy_known():
@@ -86,9 +95,15 @@ def write_image(img):
     global image_count
     unknown_path = os.path.abspath(os.path.join('unknown'))
 
-    cv2.imwrite(unknown_path+'/'+str(image_count)+'.jpg', img, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+    image_path = unknown_path+'/'+str(image_count)+'.jpg'
+    cv2.imwrite(image_path, img, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
 
     image_count += 1
+
+    t = threading.Thread(target=send_message,
+                        args=['Unknown person found', image_path])
+    t.daemon = True
+    t.start()
 
 
 def init():
