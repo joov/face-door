@@ -1,4 +1,5 @@
 setsecrets.sh
+**/secrets.yml
 .vscode
 .vagrant
 **/wpa_supplicant.conf
