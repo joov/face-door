@@ -1,11 +1,11 @@
-import yaml
+import os, yaml
 from datetime import datetime
 import ext_api
 
 def get_api():
     
     if not hasattr(get_api, 'secrets'):
-        file = open('secrets.yaml', 'r')
+        file = open(os.path.abspath(os.path.join('secrets.yaml')), 'r')
 
         secrets = yaml.load_all(file)
 
