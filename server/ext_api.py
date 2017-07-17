@@ -1,6 +1,6 @@
-import Api from twitter
+import twitter
 
-class ExtApi(Api):
+class ExtApi(twitter.Api):
 
 
     def PostDirectMessageWithImage(self,
