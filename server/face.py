@@ -39,7 +39,7 @@ def stop_recording():
     return 'Stopped'
 
 @app.route('/alarm', methods=['GET'])
-def send_twitter_alarm:
+def send_twitter_alarm():
     t = threading.Thread(target=send_message, 
                          args=['Door Wintergarten opened', None])
     t.daemon = True
