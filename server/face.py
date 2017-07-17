@@ -12,7 +12,7 @@ import cv2
 import numpy as np
 from flask import Flask, jsonify, request, redirect
 import threading
-import door_twitter
+import send_message from door_twitter
 
 app = Flask(__name__)
 
