@@ -47,7 +47,7 @@ def send_message(text, image_path):
 
         try:
             media_id = api.UploadMediaSimple(data,
-                          additional_owners=[get_other_user()]
+                          additional_owners=[get_other_user()],
                           media_category=None)
             api.PostDirectMessageWithImage(
                           tweet_text,
