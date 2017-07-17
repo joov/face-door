@@ -31,7 +31,7 @@ def send_message(text, image_path):
 
     time_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-    tweet_text = "{0} at {1} at {}".format(text, time_str)
+    tweet_text = "{0} at {1}".format(text, time_str)
     if image_path is None:
         
         try:
