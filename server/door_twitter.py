@@ -1,6 +1,6 @@
 import os, yaml
 from datetime import datetime
-import ext_api
+import ext_api as ext_api
 
 def get_api():
     
@@ -9,7 +9,7 @@ def get_api():
 
         secrets = yaml.load_all(file)
 
-    api = ExtApi(consumer_key=secrets['Consumer_Key'],
+    api = ext_api.ExtApi(consumer_key=secrets['Consumer_Key'],
                       consumer_secret=secrets['Consumer_Secret'],
                       access_token_key=secrets['Access_Token'],
                       access_token_secret=secrets['Access_Token_Secret'])
