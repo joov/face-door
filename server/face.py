@@ -44,13 +44,13 @@ def send_twitter_alarm():
 
     print("sending message")
 
-    if message == None:
+    if message is None:
         message = 'Unknown event'
 
-    t = threading.Thread(target=door_twitter.send_message, 
+    my_t = threading.Thread(target=door_twitter.send_message, 
                          args=[message, None])
-    t.daemon = True
-    t.start()
+    my_t.daemon = True
+    my_t.start()
 
 
 @app.route('/known', methods=['GET'])

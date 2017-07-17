@@ -5,7 +5,7 @@ import ext_api
 def get_api():
     
     if not hasattr(get_api, 'secrets'):
-        file = open('secrets', 'r')
+        file = open('secrets.yaml', 'r')
 
         secrets = yaml.load_all(file)
 
