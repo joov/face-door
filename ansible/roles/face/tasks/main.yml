@@ -108,6 +108,10 @@
  command: pip3 install flask
  become: yes
 
+-name: 'Install flask'
+ command: pip3 install pyyaml
+ become: yes
+
 - name: 'Install twitter api'
   command: pip3 install python-twitter
   become: yes

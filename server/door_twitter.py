@@ -1,7 +1,6 @@
 import yaml
 from datetime import datetime
-from TwitterAPI import TwitterAPI
-
+import twitter
 
 def get_api():
     
