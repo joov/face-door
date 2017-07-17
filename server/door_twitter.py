@@ -37,7 +37,7 @@ def send_message(text, image_path):
         try:
             print('Posting direct message')
             api.PostDirectMessage(
-                          tweet_text,
+                          text=tweet_text,
                           user_id=get_other_user(),
                           screen_name=None)
         except BaseException:
@@ -49,11 +49,12 @@ def send_message(text, image_path):
 
         try:
             print('Posting direct message with image')
-            media_id = api.UploadMediaSimple(data,
+            media_id = api.UploadMediaSimple(
+                          media=data,
                           additional_owners=[get_other_user()],
                           media_category=None)
             api.PostDirectMessageWithImage(
-                          tweet_text,
+                          texst=tweet_text,
                           media_id=media_id,
                           user_id=get_other_user(),
                           screen_name=None)
