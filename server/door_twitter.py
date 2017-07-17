@@ -9,7 +9,7 @@ def get_api():
 
         secrets = yaml.load_all(file)
 
-    api = twitter.Api(consumer_key=secrets['Consumer_Key'],
+    api = ExtApi(consumer_key=secrets['Consumer_Key'],
                       consumer_secret=secrets['Consumer_Secret'],
                       access_token_key=secrets['Access_Token'],
                       access_token_secret=secrets['Access_Token_Secret'])
