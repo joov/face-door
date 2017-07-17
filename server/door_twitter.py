@@ -1,44 +1,60 @@
 import yaml
 from datetime import datetime
-import twitter
+import ext_api
 
 def get_api():
     
     if not hasattr(get_api, 'secrets'):
         file = open('secrets', 'r')
 
-        secretes = yaml.load_all(file)
+        secrets = yaml.load_all(file)
 
-    api = TwitterAPI(secrets['Consumer_Key'],
-                 secrets['Consumer_Secret'],
-                 secrets['Access_Token'],
-                 secrets['Access_Token_Secret'])
+    api = twitter.Api(consumer_key=secrets['Consumer_Key'],
+                      consumer_secret=secrets['Consumer_Secret'],
+                      access_token_key=secrets['Access_Token'],
+                      access_token_secret=secrets['Access_Token_Secret'])
     return api
+
+def get_other_user():
+    if not hasattr(get_other_user, 'name'):
+        file = open('secrets', 'r')
+
+        secrets = yaml.load_all(file)
+        name = secrets['Other_User']
+
+    return name
         
 
-
-
 def send_message(text, image_path):
-    secrets = get_secrets
-
     api = get_api()
 
     time_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     tweet_text = "{0} at {1} at {}".format(text, time_str)
     if image_path is None:
-        r = api.request('statuses/update', {'status': TWEET_TEXT})
+        
+        try:
+            api.PostDirectMessage(
+                          tweet_text,
+                          user_id=get_other_user(),
+                          screen_name=None)
+        except BaseException:
+             print("Unexpected error while sending direct message:", sys.exc_info()[0])
+
     else:
         file = open(image_path, 'rb')
         data = file.read()
-        r = api.request('statuses/update_with_media',
-                {'status': tweet_text},
-                {'media[]': data})
 
-    print('SUCCESS' if r.status_code == 200 else 'FAILURE')
+        try:
+            media_id = api.UploadMediaSimple(data
+                          additional_owners=[get_other_user()]
+                          media_category=None)
+            api.PostDirectMessageWithImage(
+                          tweet_text,
+                          media_id=media_id
+                          user_id=get_other_user(),
+                          screen_name=None)
+                        )
+        except BaseException:
+             print("Unexpected error while sending direct message:", sys.exc_info()[0])
 
-
-
-
-    print('SUCCESS' if r.status_code == 200 else 'FAILURE')
-    
