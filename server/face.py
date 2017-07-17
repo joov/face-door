@@ -40,8 +40,15 @@ def stop_recording():
 
 @app.route('/alarm', methods=['GET'])
 def send_twitter_alarm():
+    message = request.args.get('message')
+
+    print("sending message")
+
+    if message == None:
+        message = 'Unknown event'
+
     t = threading.Thread(target=send_message, 
-                         args=['Door Wintergarten opened', None])
+                         args=[message, None])
     t.daemon = True
     t.start()
 

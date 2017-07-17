@@ -34,6 +34,7 @@ def send_message(text, image_path):
     if image_path is None:
         
         try:
+            print('Posting direct message')
             api.PostDirectMessage(
                           tweet_text,
                           user_id=get_other_user(),
@@ -46,6 +47,7 @@ def send_message(text, image_path):
         data = file.read()
 
         try:
+            print('Posting direct message with image')
             media_id = api.UploadMediaSimple(data,
                           additional_owners=[get_other_user()],
                           media_category=None)
