@@ -51,7 +51,7 @@ def send_message(text, image_path):
                           media_category=None)
             api.PostDirectMessageWithImage(
                           tweet_text,
-                          media_id=media_id
+                          media_id=media_id,
                           user_id=get_other_user(),
                           screen_name=None)
                         )
