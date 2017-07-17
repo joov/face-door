@@ -1,10 +1,11 @@
 import yaml
 from datetime import datetime
+from TwitterAPI import TwitterAPI
 
 
 def get_api():
     
-    if not hasattr(get_secrets, 'secrets'):
+    if not hasattr(get_api, 'secrets'):
         file = open('secrets', 'r')
 
         secretes = yaml.load_all(file)
