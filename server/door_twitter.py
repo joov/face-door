@@ -2,7 +2,7 @@ import yaml
 from datetime import datetime
 
 
-def get_api:
+def get_api():
     
     if not hasattr(get_secrets, 'secrets'):
         file = open('secrets', 'r')
