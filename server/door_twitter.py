@@ -46,7 +46,7 @@ def send_message(text, image_path):
         data = file.read()
 
         try:
-            media_id = api.UploadMediaSimple(data
+            media_id = api.UploadMediaSimple(data,
                           additional_owners=[get_other_user()]
                           media_category=None)
             api.PostDirectMessageWithImage(
