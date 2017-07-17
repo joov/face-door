@@ -7,7 +7,7 @@ def get_api():
     if not hasattr(get_api, 'secrets'):
         file = open(os.path.abspath(os.path.join('secrets.yml')), 'r')
 
-        secrets = yaml.load_all(file)
+        secrets = yaml.load(file)
 
     print (secrets['Consumer_Key'])
     api = ext_api.ExtApi(consumer_key=secrets['Consumer_Key'],
