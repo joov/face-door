@@ -57,7 +57,7 @@ def send_message(text, image_path):
             api.PostDirectMessageWithImage(
                           text=tweet_text,
                           media_id=media_id,
-                          user_id=get_other_user())
+                          user_id=[get_other_user()])
 
         except BaseException:
              print("Unexpected error while sending direct message")
