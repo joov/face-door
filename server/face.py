@@ -42,6 +42,9 @@ def stop_recording():
 def send_twitter_alarm():
     message = request.args.get('message')
 
+    if message is None:
+        return 'on'
+
     print("sending message")
 
     if message is None:
