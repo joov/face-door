@@ -38,7 +38,7 @@ def send_message(text, image_path):
             print('Posting direct message')
             api.PostDirectMessage(
                           text=tweet_text,
-                          user_id=get_other_user(),
+                          user=get_other_user(),
                           screen_name=None)
         except BaseException:
              print("Unexpected error while sending direct message:", sys.exc_info()[0])
@@ -56,7 +56,7 @@ def send_message(text, image_path):
             api.PostDirectMessageWithImage(
                           texst=tweet_text,
                           media_id=media_id,
-                          user_id=get_other_user(),
+                          user=get_other_user(),
                           screen_name=None)
 
         except BaseException:
