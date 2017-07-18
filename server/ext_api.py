@@ -32,9 +32,9 @@ class ExtApi(twitter.Api):
         elif screen_name:
             data['screen_name'] = screen_name
         else:
-            raise TwitterError({'message': "Specify at least one of user_id or screen_name."})
+            raise twitter.TwitterError({'message': "Specify at least one of user_id or screen_name."})
 
         resp = self._RequestUrl(url, 'POST', data=data)
         data = self._ParseAndCheckTwitter(resp.content.decode('utf-8'))
 
-        return DirectMessage.NewFromJsonDict(data)
+        return twitter.DirectMessage.NewFromJsonDict(data)
