@@ -138,6 +138,9 @@ def init():
     find_known_faces()
     get_image_count()
 
+    if '-start'in sys.argv:
+        is_recording = True
+        
 
 def do_record():
     global is_recording, known_faces, image_count, camera,SIZE_X,SIZE_Y
