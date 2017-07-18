@@ -44,13 +44,11 @@ def send_message(text, image_path):
              print("Unexpected error while sending direct message:", sys.exc_info()[0])
 
     else:
-        file = open(image_path, 'rb')
-        data = file.read()
 
         try:
             print('Posting direct message with image')
             media_id = api.UploadMediaSimple(
-                          media=data,
+                          media=image_path,
                           additional_owners=[get_other_user()],
                           media_category=None)
             api.PostDirectMessageWithImage(
