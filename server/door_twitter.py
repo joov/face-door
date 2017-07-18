@@ -47,10 +47,10 @@ def send_message(text, image_path):
     else:
 
         try:
-            print('Posting direct message with image')
+            print('Posting direct message with image {}'.format(image_path))
             media_id = api.UploadMediaSimple(
-                          media=image_path,
-                          additional_owners=[get_other_user()])
+                          media=image_path)
+                        #   additional_owners=[get_other_user()])
 
             api.PostDirectMessageWithImage(
                           text=tweet_text,
