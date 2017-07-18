@@ -126,7 +126,7 @@ def write_image(img):
 def init():
     global SIZE_X, SIZE_Y
     global is_recording
-    
+
     # Get a reference to the Raspberry Pi camera.
     # If this fails, make sure you have a camera connected to the RPi and that you
     # enabled your camera in raspi-config and rebooted first.
@@ -140,7 +140,8 @@ def init():
     find_known_faces()
     get_image_count()
 
-    if '-start'in sys.argv:
+    if '-start' in sys.argv:
+        print('Starting recording')
         is_recording = True
         
 
