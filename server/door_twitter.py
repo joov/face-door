@@ -58,7 +58,7 @@ def send_message(text, image_path):
                           user_id=get_other_user())
 
         except BaseException:
-             print("Unexpected error while sending direct message)
+             print("Unexpected error while sending direct message")
              traceback.print_exc(file=sys.stdout)
 
     print('Messge sent!')
