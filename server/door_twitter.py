@@ -50,7 +50,7 @@ def send_message(text, image_path):
             print('Posting direct message with image {}'.format(image_path))
             media_id = api.UploadMediaSimple(
                           media=image_path)
-                        #   additional_owners=get_other_user())
+                          additional_owners=[int(get_other_user())])
 
             print('Got media id {}'.format(media_id))
 
