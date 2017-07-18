@@ -76,7 +76,7 @@ def find_known_faces():
     print("Loading known face image(s) from {0}".format(known_path))
 
     for file in os.listdir(known_path):
-        if not file.endswith('.jpg'):
+        if not file.endswith('.png'):
             continue
         
         print("Path {}".format(known_path+'/'+file))
@@ -102,7 +102,7 @@ def get_image_count():
     unknown_path = os.path.abspath(os.path.join('unknown'))
 
     for file in os.listdir(unknown_path):
-        if not file.endswith('.jpg'):
+        if not file.endswith('.png'):
             continue
         
         num = int(re.findall(r'\d+',file)[0])
@@ -113,8 +113,8 @@ def write_image(img):
     global image_count
     unknown_path = os.path.abspath(os.path.join('unknown'))
 
-    image_path = unknown_path+'/'+str(image_count)+'.jpg'
-    cv2.imwrite(image_path, img, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+    image_path = unknown_path+'/'+str(image_count)+'.png'
+    cv2.imwrite(image_path, img)
 
     image_count += 1
 
@@ -172,7 +172,7 @@ def do_record():
         face_encodings = face_recognition.face_encodings(output, face_locations)
 
         # print("Writing image {}".format(count))
-        # cv2.imwrite('/tmp/image_'+str(count)+'.jpg', output, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
+        # cv2.imwrite('/tmp/image_'+str(count)+'.png', output, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
         # count+=1
 
         # Loop over each face found in the frame to see if it's someone we know.
