@@ -51,6 +51,7 @@ def send_twitter_alarm():
                          args=[message, None])
     my_t.daemon = True
     my_t.start()
+    return 'Message sent'
 
 
 @app.route('/known', methods=['GET'])
