@@ -122,10 +122,16 @@ def write_image(img):
     t.daemon = True
     t.start()
 
+def check_start():
+    global is_recording
+    if '-start' in sys.argv:
+        print('Start recording')
+        is_recording = True
+    else:
+        is_recording = False
 
 def init():
     global SIZE_X, SIZE_Y
-    global is_recording
 
     # Get a reference to the Raspberry Pi camera.
     # If this fails, make sure you have a camera connected to the RPi and that you
@@ -140,9 +146,6 @@ def init():
     find_known_faces()
     get_image_count()
 
-    if '-start' in sys.argv:
-        print('Starting recording')
-        is_recording = True
         
 
 def do_record():
@@ -193,7 +196,7 @@ def do_record():
 
 if __name__ == "__main__":
     init()
-    is_recording = False
+    check_start()
     t = threading.Thread(target=do_record)
     t.daemon = True
     t.start()
