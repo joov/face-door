@@ -3,7 +3,7 @@
 # To be used with zway home automation
 
 
-import os, sys, time, re
+import os, sys, time, re, traceback
 lib_path = os.path.abspath(os.path.join('..','..','face_recognition'))
 sys.path.append(lib_path)
 import face_recognition
@@ -84,7 +84,8 @@ def find_known_faces():
             image = face_recognition.load_image_file(known_path+'/'+file)
 
         except BaseException:
-            print("Unexpected error:", sys.exc_info()[0])
+            print("Unexpected error")
+            traceback.print_exc(file=sys.stdout)
 
         face_encodings = face_recognition.face_encodings(image)
         if len (face_encodings) == 0:

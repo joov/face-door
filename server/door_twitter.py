@@ -1,4 +1,4 @@
-import os, yaml
+import sys, os, yaml, traceback
 from datetime import datetime
 import ext_api as ext_api
 
@@ -41,7 +41,8 @@ def send_message(text, image_path):
                           user_id=get_other_user())
 
         except BaseException:
-             print("Unexpected error while sending direct message:", sys.exc_info()[0])
+             print("Unexpected error while sending direct message")
+             traceback.print_exc(file=sys.stdout)
 
     else:
 
@@ -49,14 +50,15 @@ def send_message(text, image_path):
             print('Posting direct message with image')
             media_id = api.UploadMediaSimple(
                           media=image_path,
-                          additional_owners=[get_other_user()],
-                          media_category=None)
+                          additional_owners=[get_other_user()])
+
             api.PostDirectMessageWithImage(
                           text=tweet_text,
                           media_id=media_id,
                           user_id=get_other_user())
 
         except BaseException:
-             print("Unexpected error while sending direct message:", sys.exc_info()[0])
+             print("Unexpected error while sending direct message)
+             traceback.print_exc(file=sys.stdout)
 
     print('Messge sent!')
