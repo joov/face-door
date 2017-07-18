@@ -24,6 +24,8 @@ output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 known_faces = {}
 image_count=0
 
+last_message='closed'
+
 
 @app.route('/start', methods=['GET'])
 def start_recording():
@@ -40,10 +42,14 @@ def stop_recording():
 
 @app.route('/alarm', methods=['GET'])
 def send_twitter_alarm():
+    global last_message
+
     message = request.args.get('message')
 
     if message is None:
-        return 'on'
+        return last_message
+
+    last_message = message
 
     print("sending message")
 
