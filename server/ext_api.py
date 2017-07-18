@@ -37,4 +37,6 @@ class ExtApi(twitter.Api):
         resp = self._RequestUrl(url, 'POST', data=data)
         data = self._ParseAndCheckTwitter(resp.content.decode('utf-8'))
 
+        print("Response: {}".format(data))
+        
         return twitter.DirectMessage.NewFromJsonDict(data)

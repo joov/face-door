@@ -52,6 +52,8 @@ def send_message(text, image_path):
                           media=image_path)
                         #   additional_owners=[get_other_user()])
 
+            print('Got media id {}'.format(media_id))
+            
             api.PostDirectMessageWithImage(
                           text=tweet_text,
                           media_id=media_id,
