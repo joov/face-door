@@ -52,7 +52,7 @@ def send_message(text, image_path):
                           additional_owners=[get_other_user()],
                           media_category=None)
             api.PostDirectMessageWithImage(
-                          texst=tweet_text,
+                          text=tweet_text,
                           media_id=media_id,
                           user_id=get_other_user())
 
