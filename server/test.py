@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/', defaults={'path': ''}, methods=['POST'])
 @app.route('/<path:path>', methods=['POST'])
-def catch_all():
+def catch_all(path):
         print("Path: {}".format(path))
         print(jsonify(request.json))
         return 'true'
