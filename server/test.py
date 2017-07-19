@@ -1,12 +1,10 @@
-import json
 from flask import Flask, jsonify, request, redirect
 
 app = Flask(__name__)
 
 @app.route('/',methods=['POST'])
 def post():
-        data = request.data
-        json.dumps(data)
+        print request.get_json()
         return 'true'
 
 
