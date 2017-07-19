@@ -2,8 +2,10 @@ from flask import Flask, jsonify, request, redirect
 
 app = Flask(__name__)
 
-@app.route('/direct_messages/new',methods=['POST'])
-def post():
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def catch_all():
+        print("Path: {}".format(path))
         print(jsonify(request.json))
         return 'true'
 
