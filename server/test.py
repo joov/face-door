@@ -2,8 +2,8 @@ from flask import Flask, jsonify, request, redirect
 
 app = Flask(__name__)
 
-@app.route('/', defaults={'path': ''})
-@app.route('/<path:path>')
+@app.route('/', defaults={'path': ''}, methods=['POST'])
+@app.route('/<path:path>', methods=['POST'])
 def catch_all():
         print("Path: {}".format(path))
         print(jsonify(request.json))
