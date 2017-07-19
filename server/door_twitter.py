@@ -49,12 +49,13 @@ def send_message(text, image_path):
 
         try:
             print('Posting direct message with image {}'.format(image_path))
-            media_id = api.UploadMediaSimple(
-                          media=image_path)
-                        #   additional_owners=[int(get_other_user())])
+            # media_id = api.UploadMediaSimple(
+            #               media=image_path)
+            #             #   additional_owners=[int(get_other_user())])
 
-            print('Got media id {}'.format(media_id))
+            # print('Got media id {}'.format(media_id))
 
+            media_id = '12345'
             api.PostDirectMessageWithImage(
                           text=tweet_text,
                           media_id=media_id,
