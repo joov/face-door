@@ -13,7 +13,7 @@ def get_api():
     api = ext_api.ExtApi(consumer_key=secrets['Consumer_Key'],
                       consumer_secret=secrets['Consumer_Secret'],
                       access_token_key=secrets['Access_Token'],
-                      access_token_secret=secrets['Access_Token_Secret']
+                      access_token_secret=secrets['Access_Token_Secret'],
                       base_url='http://localhost:8080')
     return api
 
