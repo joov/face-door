@@ -14,7 +14,7 @@ def get_api():
                       consumer_secret=secrets['Consumer_Secret'],
                       access_token_key=secrets['Access_Token'],
                       access_token_secret=secrets['Access_Token_Secret']
-                      base_url='http://localhost:80')
+                      base_url='http://localhost:8080')
     return api
 
 def get_other_user():
