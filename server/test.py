@@ -4,7 +4,7 @@ app = Flask(__name__)
 
 @app.route('/',methods=['POST'])
 def post():
-        print(request.get_json())
+        print(jsonify(request.json))
         return 'true'
 
 
