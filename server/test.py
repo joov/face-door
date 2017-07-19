@@ -1,7 +1,7 @@
 import json
 from flask import Flask, jsonify, request, redirect
 
-@app = Flask(__name__)
+app = Flask(__name__)
 
 @app.route('/',methods=['POST'])
 def post():
