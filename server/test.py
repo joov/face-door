@@ -7,7 +7,7 @@ app = Flask(__name__)
 @app.route('/<path:path>', methods=['POST'])
 def catch_all(path):
         print("Path: {}".format(path))
-        print("Request Body: {}".format(json.dumps(request.get_json()))
+        print("Request Body: {}".format(json.dumps(request.get_json())))
         return 'true'
 
 
