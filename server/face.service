@@ -7,7 +7,7 @@ Type=forking
 # The PID file is optional, but recommended in the manpage
 # "so that systemd can identify the main process of the daemon"
 PIDFile=/var/run/face.pid
-User=root
+User=pi
 WorkingDirectory=/home/pi/git/face-door/server
 ExecStart=/usr/bin/nohup /usr/bin/python3 face.py -start > /var/log/face.log 2>&1 &
 Restart=on-abort
