@@ -9,7 +9,7 @@ Type=forking
 PIDFile=/var/run/face.pid
 User=pi
 WorkingDirectory=/home/pi/git/face-door/server
-ExecStart=/usr/bin/nohup /usr/bin/python3 face.py -start > /var/log/face.log 2>&1 &
+ExecStart=/home/pi/git/face-door/server/startface.sh
 Restart=on-abort
 
 [Install]
