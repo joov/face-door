@@ -7,7 +7,8 @@ Type=forking
 # The PID file is optional, but recommended in the manpage
 # "so that systemd can identify the main process of the daemon"
 PIDFile=/var/run/face.pid
-User=pi
+User=root
+Group=root
 WorkingDirectory=/home/pi/git/face-door/server
 ExecStart=/home/pi/git/face-door/server/startface.sh
 Restart=on-abort
