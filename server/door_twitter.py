@@ -3,6 +3,7 @@ from datetime import datetime
 import ext_api as ext_api
 
 def get_api():
+    global debugHTTP
     
     if not hasattr(get_api, 'secrets'):
         file = open(os.path.abspath(os.path.join('secrets.yml')), 'r')
@@ -13,7 +14,8 @@ def get_api():
     api = ext_api.ExtApi(consumer_key=secrets['Consumer_Key'],
                       consumer_secret=secrets['Consumer_Secret'],
                       access_token_key=secrets['Access_Token'],
-                      access_token_secret=secrets['Access_Token_Secret'])
+                      access_token_secret=secrets['Access_Token_Secret'],
+                      debugHTTP=debugHTTP)
     return api
 
 def get_other_user():

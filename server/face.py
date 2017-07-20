@@ -23,6 +23,7 @@ camera = PiCamera()
 output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 known_faces = {}
 image_count=0
+debugHTTP=False
 
 last_message='closed'
 
@@ -124,12 +125,16 @@ def write_image(img):
     t.start()
 
 def check_start():
-    global is_recording
+    global is_recording, debugHTTP
     if '-start' in sys.argv:
         print('Start recording')
         is_recording = True
     else:
         is_recording = False
+
+    if '-debugHTTP' in sys.argv
+        debugHTTP=True
+        
 
 def init():
     global SIZE_X, SIZE_Y
