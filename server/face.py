@@ -43,7 +43,7 @@ def stop_recording():
 
 @app.route('/alarm', methods=['GET'])
 def send_twitter_alarm():
-    global last_message
+    global last_message, debugHTTP
 
     message = request.args.get('message')
 
@@ -58,7 +58,7 @@ def send_twitter_alarm():
         message = 'Unknown event'
 
     my_t = threading.Thread(target=door_twitter.send_message, 
-                         args=[message, None])
+                         args=[message, None, debugHTTP])
     my_t.daemon = True
     my_t.start()
     return 'Message sent'
@@ -111,7 +111,7 @@ def get_image_count():
             image_count = num+1
 
 def write_image(img):
-    global image_count
+    global image_count, debugHTTP
     unknown_path = os.path.abspath(os.path.join('unknown'))
 
     image_path = unknown_path+'/'+str(image_count)+'.jpg'
@@ -120,7 +120,7 @@ def write_image(img):
     image_count += 1
 
     t = threading.Thread(target=door_twitter.send_message,
-                        args=['Unknown person found', image_path])
+                        args=['Unknown person found', image_path. debugHTTP])
     t.daemon = True
     t.start()
 

@@ -2,8 +2,7 @@ import sys, os, yaml, traceback
 from datetime import datetime
 import ext_api as ext_api
 
-def get_api():
-    global debugHTTP
+def get_api(debugHTTP):
     
     if not hasattr(get_api, 'secrets'):
         file = open(os.path.abspath(os.path.join('secrets.yml')), 'r')
@@ -28,8 +27,8 @@ def get_other_user():
     return name
         
 
-def send_message(text, image_path):
-    api = get_api()
+def send_message(text, image_path, debugHTTP=False):
+    api = get_api(debugHTTP)
 
     time_str = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
