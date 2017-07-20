@@ -23,7 +23,6 @@ camera = PiCamera()
 output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 known_faces = {}
 image_count=0
-debugHTTP=False
 
 last_message='closed'
 

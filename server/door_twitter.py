@@ -14,7 +14,7 @@ def get_api(debugHTTP):
                       consumer_secret=secrets['Consumer_Secret'],
                       access_token_key=secrets['Access_Token'],
                       access_token_secret=secrets['Access_Token_Secret'],
-                      debugHTTP=debugHTTP)
+                      debugHTTP=True)
     return api
 
 def get_other_user():
