@@ -119,7 +119,8 @@ def write_image(img):
     image_count += 1
 
     t = threading.Thread(target=door_twitter.send_message,
-                        args=['Unknown person found', image_path])
+                        args=["Unknown person found ({})".format(image_path),
+                         image_path])
     t.daemon = True
     t.start()
 
