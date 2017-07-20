@@ -13,8 +13,7 @@ def get_api():
     api = ext_api.ExtApi(consumer_key=secrets['Consumer_Key'],
                       consumer_secret=secrets['Consumer_Secret'],
                       access_token_key=secrets['Access_Token'],
-                      access_token_secret=secrets['Access_Token_Secret'],
-                      base_url='http://localhost:8080')
+                      access_token_secret=secrets['Access_Token_Secret'])
     return api
 
 def get_other_user():
@@ -49,11 +48,11 @@ def send_message(text, image_path):
 
         try:
             print('Posting direct message with image {}'.format(image_path))
-            # media_id = api.UploadMediaSimple(
-            #               media=image_path)
-            #             #   additional_owners=[int(get_other_user())])
+            media_id = api.UploadMediaSimple(
+                          media=image_path)
+                        #   additional_owners=[int(get_other_user())])
 
-            # print('Got media id {}'.format(media_id))
+            print('Got media id {}'.format(media_id))
 
             media_id = '12345'
             api.PostDirectMessageWithImage(
