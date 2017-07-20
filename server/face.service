@@ -1,5 +1,6 @@
 [Unit]
-Face-Door recoginition and burglar alarm
+Description=Face-Door recoginition and burglar alarm
+After=syslog.target
 
 [Service]
 Type=forking
@@ -8,6 +9,7 @@ Type=forking
 PIDFile=/var/run/face.pid
 WorkingDirectory=/home/pi/git/face-door/server
 ExecStart=python3 face.py -start
+Restart=on-abort
 
 [Install]
 WantedBy=multi-user.target
