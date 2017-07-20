@@ -1,0 +1,13 @@
+[Unit]
+Face-Door recoginition and burglar alarm
+
+[Service]
+Type=forking
+# The PID file is optional, but recommended in the manpage
+# "so that systemd can identify the main process of the daemon"
+PIDFile=/var/run/face.pid
+WorkingDirectory=/home/pi/git/face-door/server
+ExecStart=python3 face.py -start
+
+[Install]
+WantedBy=multi-user.target
