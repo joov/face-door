@@ -152,6 +152,12 @@
 - name: Creates directory for face_recognition
   file: path=/home/pi/git state=directory
 
+- name: 'Enable face service'
+  copy:
+    src: ./server/face.service
+    dest: /etc/systemd/system mode=0600
+  service: name=face  enabled=yes
+
 - name: 'Download face recognition examples'
   git: 
     repo: https://github.com/ageitgey/face_recognition.git

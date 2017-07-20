@@ -132,9 +132,9 @@ def check_start():
     else:
         is_recording = False
 
-    if '-debugHTTP' in sys.argv
+    if '-debugHTTP' in sys.argv:
         debugHTTP=True
-        
+
 
 def init():
     global SIZE_X, SIZE_Y
