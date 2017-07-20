@@ -8,7 +8,7 @@ Type=forking
 # "so that systemd can identify the main process of the daemon"
 PIDFile=/var/run/face.pid
 WorkingDirectory=/home/pi/git/face-door/server
-ExecStart=python3 face.py -start
+ExecStart=/usr/bin/python3 face.py -start
 Restart=on-abort
 
 [Install]
