@@ -70,8 +70,8 @@
   make:
     chdir: /home/pi/git/opencv
     params:
-      '-j4'
-    become: yes
+      NUM_THREADS: 4
+  become: yes
 
 - name: 'install opencv'
   make:
@@ -104,13 +104,13 @@
   command: pip3 install --upgrade picamera[array]
   become: yes
 
--name: 'Install flask'
- command: pip3 install flask
- become: yes
+- name: 'Install flask'
+  command: pip3 install flask
+  become: yes
 
--name: 'Install flask'
- command: pip3 install pyyaml
- become: yes
+- name: 'Install flask'
+  command: pip3 install pyyaml
+  become: yes
 
 - name: 'Install twitter api'
   command: pip3 install python-twitter
@@ -152,11 +152,16 @@
 - name: Creates directory for face_recognition
   file: path=/home/pi/git state=directory
 
-- name: 'Enable face service'
+- name: 'Enable face service 1'
   copy:
-    src: ./server/face.service
-    dest: /etc/systemd/system mode=0600
-  service: name=face  enabled=yes
+    src: ./face.service
+    dest: /etc/systemd/system/face.service 
+    mode: 0600
+  become: yes
+
+- name: 'Enable face service 2'
+  service: name=face enabled=yes
+  become: yes
 
 - name: 'Download face recognition examples'
   git: 

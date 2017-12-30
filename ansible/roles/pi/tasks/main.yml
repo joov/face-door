@@ -2,15 +2,14 @@
 - set_fact:
     real_ansible_host: "{{ ansible_host }}"
 
-- name: Include vars of stuff.yml into the 'stuff' variable (2.2).
-  include_vars:
-    file: ip.yml
-    name: ip
+#- name: Include vars of stuff.yml into the 'stuff' variable (2.2).
+#  include_vars:
+#    file: ip.yml
+#    name: ip
 
 - name: Expand filesystem to fill disk
   command: raspi-config --expand-rootfs
   become: yes
-
 
 - name: 'Enable camera startx'
   lineinfile:
@@ -29,19 +28,19 @@
     src: ./wpa_supplicant.conf 
     dest: /etc/wpa_supplicant/wpa_supplicant.conf mode=0600
 
-
--name: 'Set timezone'
+- name: 'Set timezone step 1'
   lineinfile:
     path: /etc/timezone
     regexp: '^Europe'
     line: 'Europe/Berlin'
+
+- name: 'Set timezone step 2'
   copy:
     src: /usr/share/zoneinfo/Europe/Berlin
     dest: /etc/localtime
     remote_src: True
 
-
--name: 'Configure WIFI interfaces'
+- name: 'Configure WIFI interfaces'
   lineinfile:
     path: /etc/network/interfaces
     line: post-up iw dev wlan0 set power_save off
