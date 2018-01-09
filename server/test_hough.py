@@ -9,6 +9,8 @@ edges = cv2.Canny(gray,50,100,apertureSize = 3)
 cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
 
 lines = cv2.HoughLines(edges,2,np.pi/180,100)
+
+print('lines found ', len(lines))
 for rho,theta in lines[0]:
     a = np.cos(theta)
     b = np.sin(theta)
