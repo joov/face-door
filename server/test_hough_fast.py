@@ -4,7 +4,7 @@ import sys
 
 img = cv2.imread(sys.argv[1])
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-edges = cv2.Canny(gray,50,150,apertureSize = 3)
+edges = cv2.Canny(gray,50,100,apertureSize = 3)
 minLineLength = 100
 maxLineGap = 10
 lines = cv2.HoughLinesP(edges,1,np.pi/180,100,minLineLength,maxLineGap)
