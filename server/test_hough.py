@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-import sysZZ
+import sys
 
 img = cv2.imread(sys.argv[1])
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
