@@ -37,7 +37,7 @@ while True:
 
 	ms = MeanShift()
 	#ms.fit(np.asarray(angles).reshape(-1,1))
-	ms.fit(lines)
+	ms.fit(np.asarray(lines))
 
 	print('Clusters found ', len(ms.cluster_centers_))
 
