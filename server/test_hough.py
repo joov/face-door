@@ -24,7 +24,7 @@ edges = cv2.Canny(gray,50,100,apertureSize = 3)
 
 cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
 
-lines = cv2.HoughLines(edges,2,np.pi/180,100)
+lines = cv2.HoughLines(edges,1,np.pi/180,100)
 
 width, height, channels = img.shape
 max = max(width, height)
