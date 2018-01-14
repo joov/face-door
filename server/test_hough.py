@@ -2,9 +2,23 @@ import cv2
 import numpy as np
 import sys
 from sklearn.cluster import MeanShift
+import imutils
+from picamera import PiCamera
 
 
-img = cv2.imread(sys.argv[1])
+SIZE_X=640
+SIZE_Y=480
+
+camera = PiCamera()
+output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
+
+camera.capture(output, format="bgr")
+
+# img = cv2.imread(sys.argv[1])
+
+# rotate image
+img = imutils.rotate(output, -90)
+
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 edges = cv2.Canny(gray,50,100,apertureSize = 3)
 

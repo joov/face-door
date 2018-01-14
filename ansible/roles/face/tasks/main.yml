@@ -116,7 +116,10 @@
   command: pip3 install scikit-lean
   become: yes
 
-  
+  - name: 'Install imutils'
+  command: pip3 install imutils
+  become: yes
+
 - name: 'Install twitter api'
   command: pip3 install python-twitter
   become: yes
