@@ -28,7 +28,7 @@ while True:
 	lines = cv2.HoughLines(edges,1,np.pi/180,100)
 
 	width, height, channels = img.shape
-	max = max(width, height)
+	maxlen = max(width, height)
 
 
 	print('lines found ', len(lines))
@@ -46,10 +46,10 @@ while True:
 			b = np.sin(theta)
 			x0 = a*rho
 			y0 = b*rho
-			x1 = int(x0 + 2*max*(-b))
-			y1 = int(y0 + 2*max*(a))
-			x2 = int(x0 - 2*max*(-b))
-			y2 = int(y0 - 2*max*(a))
+			x1 = int(x0 + 2*maxlen*(-b))
+			y1 = int(y0 + 2*maxlen*(a))
+			x2 = int(x0 - 2*maxlen*(-b))
+			y2 = int(y0 - 2*maxlen*(a))
 
 			cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
 
