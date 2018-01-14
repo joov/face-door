@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 import sys
+from sklearn.cluster import MeanShift
+
 
 img = cv2.imread(sys.argv[1])
 gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
