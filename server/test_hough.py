@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import sys
 from sklearn.cluster import MeanShift
+from sklearn import preprocessing
 import imutils
 from picamera import PiCamera
 
@@ -34,7 +35,8 @@ while True:
 	print('lines found ', len(lines))
 
 	print ('lines')
-	print (np.asarray(lines))
+	line_array = preprocessing.scale(np.asarray(lines)[0])
+	print ()
 
 	#angles = list(map(lambda x: x[0][1], lines))
 
@@ -42,8 +44,8 @@ while True:
 	#ms.fit(np.asarray(angles).reshape(-1,1))
 
 	print("transformed")
-	print (np.asarray(lines).reshape(-1,2))
-	ms.fit(np.asarray(lines).reshape(-1,2))
+	print (line_array)
+	ms.fit(line_array)
 
 	print('Clusters found ', len(ms.cluster_centers_))
 
