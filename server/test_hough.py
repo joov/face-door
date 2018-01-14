@@ -36,7 +36,7 @@ while True:
 
 	print ('lines')
 	line_array = np.asarray(lines)[0]
-	print ()
+	print (line_array)
 
 	#angles = list(map(lambda x: x[0][1], lines))
 
