@@ -10,7 +10,7 @@ cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
 
 lines = cv2.HoughLines(edges,1,np.pi/180,300)
 
-width, height = cv2.GetSize(img)
+width, height, channels = img.shape()
 max = max(width,height)
 
 print('lines found ', len(lines))
