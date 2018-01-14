@@ -13,6 +13,8 @@ SIZE_Y=480
 camera = PiCamera()
 output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 
+sigma = 0.33
+
 while True:
 	camera.capture(output, format="bgr")
 
@@ -21,8 +23,14 @@ while True:
 	# rotate image
 	img = imutils.rotate(output, -90)
 
+	v = np.median(img)
+ 
+	# apply automatic Canny edge detection using the computed median
+	lower = int(max(0, (1.0 - sigma) * v))
+	upper = int(min(255, (1.0 + sigma) * v))
+
 	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-	edges = cv2.Canny(gray,25,50,apertureSize = 3)
+	edges = cv2.Canny(gray,lower, upper)
 
 	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
 
