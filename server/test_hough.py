@@ -21,7 +21,7 @@ while True:
 	# img = cv2.imread(sys.argv[1])
 
 	# rotate image
-	img = imutils.rotate(output, -90)
+	img = imutils.rotate(output, 90)
 
 	v = np.median(img)
  
@@ -34,7 +34,7 @@ while True:
 
 	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
 
-	lines = cv2.HoughLines(edges,1,np.pi/180,160)
+	lines = cv2.HoughLines(edges,1,np.pi/180,180)
 
 	width, height, channels = img.shape
 	maxlen = max(width, height)
