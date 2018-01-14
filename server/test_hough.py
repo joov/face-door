@@ -6,7 +6,7 @@ import imutils
 from picamera import PiCamera
 
 
-SIZE_X=640
+SIZE_X=736
 SIZE_Y=480
 
 camera = PiCamera()
