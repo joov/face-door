@@ -16,7 +16,7 @@ max = max(width, height)
 
 print('lines found ', len(lines))
 
-angles = list(map(lambda x: x['1'], lines))
+angles = list(map(lambda x: x[1], lines))
 
 ms = MeanShift()
 ms.fit(angles)
