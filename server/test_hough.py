@@ -8,7 +8,10 @@ edges = cv2.Canny(gray,50,100,apertureSize = 3)
 
 cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
 
-lines = cv2.HoughLines(edges,1,np.pi/180,200)
+lines = cv2.HoughLines(edges,1,np.pi/180,300)
+
+width, height = cv.GetSize(src)
+max = max(width,height)
 
 print('lines found ', len(lines))
 for line in lines:
@@ -17,10 +20,10 @@ for line in lines:
 		b = np.sin(theta)
 		x0 = a*rho
 		y0 = b*rho
-		x1 = int(x0 + 1000*(-b))
-		y1 = int(y0 + 1000*(a))
-		x2 = int(x0 - 1000*(-b))
-		y2 = int(y0 - 1000*(a))
+		x1 = int(x0 + 2*max*(-b))
+		y1 = int(y0 + 2*max*(a))
+		x2 = int(x0 - 2*max*(-b))
+		y2 = int(y0 - 2*max*(a))
 
 		cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
 
