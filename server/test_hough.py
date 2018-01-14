@@ -21,8 +21,7 @@ angles = list(map(lambda x: x['1'], lines))
 ms = MeanShift()
 ms.fit(angles)
 
-print('Clusters found ', len(ms.cluster_centers_)
-
+print('Clusters found ', len(ms.cluster_centers_))
 
 for line in lines:
 	for rho,theta in line:
