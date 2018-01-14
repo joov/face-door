@@ -33,11 +33,15 @@ while True:
 
 	print('lines found ', len(lines))
 
+	print ('lines')
+	print (np.asarray(lines))
+
 	#angles = list(map(lambda x: x[0][1], lines))
 
 	ms = MeanShift()
 	#ms.fit(np.asarray(angles).reshape(-1,1))
 
+	print("transformed")
 	print (np.asarray(lines).reshape(-1,2))
 	ms.fit(np.asarray(lines).reshape(-1,2))
 
