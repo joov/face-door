@@ -22,11 +22,11 @@ while True:
 	img = imutils.rotate(output, -90)
 
 	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-	edges = cv2.Canny(gray,50,100,apertureSize = 3)
+	edges = cv2.Canny(gray,25,50,apertureSize = 3)
 
 	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
 
-	lines = cv2.HoughLines(edges,2,np.pi/180,50)
+	lines = cv2.HoughLines(edges,1,np.pi/180,200)
 
 	width, height, channels = img.shape
 	maxlen = max(width, height)
