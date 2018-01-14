@@ -21,7 +21,7 @@ print('lines found ', len(lines))
 angles = list(map(lambda x: x[0][1], lines))
 
 ms = MeanShift()
-ms.fit(angles)
+ms.fit(angles.reshape(-1,1))
 
 print('Clusters found ', len(ms.cluster_centers_))
 
