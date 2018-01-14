@@ -111,7 +111,12 @@
 - name: 'Install flask'
   command: pip3 install pyyaml
   become: yes
+  
+- name: 'Install scikit-lean'
+  command: pip3 install scikit-lean
+  become: yes
 
+  
 - name: 'Install twitter api'
   command: pip3 install python-twitter
   become: yes

@@ -13,7 +13,17 @@ lines = cv2.HoughLines(edges,2,np.pi/180,300)
 width, height, channels = img.shape
 max = max(width, height)
 
+
 print('lines found ', len(lines))
+
+angles = list(map(lambda x: x['1'], lines))
+
+ms = MeanShift()
+ms.fit(angles)
+
+print('Clusters found ', len(ms.cluster_centers_)
+
+
 for line in lines:
 	for rho,theta in line:
 		a = np.cos(theta)
