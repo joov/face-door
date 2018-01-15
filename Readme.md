@@ -1,5 +1,14 @@
 # RPI for face / door detection
 
+The aim of this project is to use the raspberry pi to
+* shoot camera picturs of people entering a door
+* recognise faces (known / unknown)
+* do alerts only when the door is opened (no face recoginition for people just running around the house)
+
+First attempt worked with zwave, razberry and the appropriate extension module. As this amouts to costs of approx 100$ (razberry extension and door sensor) I now try to identify open doors from the camera picture alone. This is ongoing devewlopment. Tipps and help are welcome 
+
+
+
 ## Prerequisites
 
 * Start with  [Razberry](http://razberry.z-wave.me/) imgage on rpi
