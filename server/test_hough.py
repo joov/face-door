@@ -50,7 +50,7 @@ while True:
 
 	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 	edges = cv2.Canny(gray,lower, upper)
-	edges = cv2.threshold(edges,100,255,0)
+	_,edges = cv2.threshold(edges,100,255,0)
 
 	if last_edges is None:
 		last_edges = edges
