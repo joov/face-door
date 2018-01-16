@@ -22,7 +22,7 @@ def movement(mat_1,mat_2):
     _,mat_2_gray   = cv2.threshold(mat_2_gray,100,255,0)
     mat_2_gray     = cv2.bitwise_xor(mat_1_gray,mat_2_gray)
 #   mat_2_gray     = cv2.blur(mat_2_gray,(blur2,blur2))
-#    _,mat_2_gray   = cv2.threshold(mat_2_gray,70,255,0)
+    _,mat_2_gray   = cv2.threshold(mat_2_gray,70,255,0)
 #    mat_2_gray     = cv2.erode(mat_2_gray,np.ones((erodeval,erodeval)))
     mat_2_gray     = cv2.dilate(mat_2_gray,np.ones((4,4)))
 
