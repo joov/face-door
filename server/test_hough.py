@@ -128,5 +128,6 @@ while True:
 			cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
 
 	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_w_lines.jpg' ,img)
+	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_w_lines.jpg' ,last_img)
 
 	last_img = img.copy()
