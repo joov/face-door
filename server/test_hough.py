@@ -29,10 +29,10 @@ with open('config.yml', 'r') as stream:
 
 camera = PiCamera()
 output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
-delta = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 
 sigma = 0.33
 last_edges = None
+delta = None
 
 while True:
 	camera.capture(output, format="bgr")
@@ -50,10 +50,12 @@ while True:
 
 	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 	edges = cv2.Canny(gray,lower, upper)
-	_,edges = cv2.threshold(edges,100,255,0)
+	edges = cv2.threshold(edges,100,255,0)
 
 	if last_edges is None:
 		last_edges = edges
+		delta = np.empty((edges.shape[1], edges.shape[0], 3), dtype=np.uint8)
+
 		continue
 	
 	cv2.bitwise_xor(edges, last_edges, delta)
