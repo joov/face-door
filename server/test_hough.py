@@ -112,7 +112,7 @@ while True:
 #	print (line_array)
 	# ms.fit(line_array)
 
-	print('Clusters found ', len(ms.cluster_centers_))
+#	print('Clusters found ', len(ms.cluster_centers_))
 
 	for line in lines:
 		for rho,theta in line:
