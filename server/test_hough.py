@@ -14,14 +14,14 @@ ROTATION = 0
 
 with open('config.yml', 'r') as stream:
 	params = yaml.load(stream)
-	if height in params:
-		SIZE_X = params[height]
+	if 'height' in params:
+		SIZE_X = params['height']
 		print ("Height found")
-	if width in params:
-		SIZE_Y = params[width]
+	if 'width' in params:
+		SIZE_Y = params['width']
 
-	if rotation in params:
-		ROTATION = params[rotation]
+	if 'rotation' in params:
+		ROTATION = params['rotation']
 
 
 
