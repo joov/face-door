@@ -5,15 +5,33 @@ from sklearn.cluster import MeanShift
 from sklearn import preprocessing
 import imutils
 from picamera import PiCamera
-
+import yaml
 
 SIZE_X=736
 SIZE_Y=480
+ROTATION = 0
+
+with open('config.yml', 'r') as stream:
+	params = yaml.load(stream)
+	if height in params:
+		SIZE_X = params[height]
+		print "Height found"
+	if width in params:
+		SIZE_Y = params[width]
+
+	if rotation in params:
+		ROTATION = params[rotation]
+
+
+
+
 
 camera = PiCamera()
 output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
+delta = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 
 sigma = 0.33
+last_edges = None
 
 while True:
 	camera.capture(output, format="bgr")
@@ -21,7 +39,7 @@ while True:
 	# img = cv2.imread(sys.argv[1])
 
 	# rotate image
-	img = imutils.rotate(output, 90)
+	img = imutils.rotate(output, ROTATION)
 
 	v = np.median(img)
  
@@ -32,9 +50,17 @@ while True:
 	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 	edges = cv2.Canny(gray,lower, upper)
 
-	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
+	if last_edges is None:
+		last_edges = edges
+		continue
+	
+	cv2.bitwise_xor(edges, last_edges, delta)
 
-	lines = cv2.HoughLines(edges,1,np.pi/180,160)
+
+	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
+	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_delta.jpg' ,delta)
+
+	lines = cv2.HoughLines(delta,1,np.pi/180,160)
 
 	width, height, channels = img.shape
 	maxlen = max(width, height)
@@ -71,3 +97,5 @@ while True:
 			cv2.line(img,(x1,y1),(x2,y2),(0,0,255),2)
 
 	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_w_lines.jpg' ,img)
+
+	last_edges = edges
