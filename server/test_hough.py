@@ -29,7 +29,7 @@ def movement(mat_1,mat_2):
     _, contours,__ = cv2.findContours(mat_2_gray,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
     if len(contours) > 0:
        #If there were any movements
-	   print ('Found contours: ', len(contours))
+       print ('Found contours: ', len(contours))
        return mat_2_gray 
     #if not
     return  None                    
