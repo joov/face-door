@@ -109,7 +109,7 @@ while True:
 
 #	print("transformed")
 #	print (line_array)
-	ms.fit(line_array)
+	# ms.fit(line_array)
 
 	print('Clusters found ', len(ms.cluster_centers_))
 
