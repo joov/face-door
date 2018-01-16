@@ -59,10 +59,11 @@ while True:
 
 
 	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
-	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_delta.jpg' ,delta)
+	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_last_edges.jpg' ,last_edges)
 
 	try:
 		lines = cv2.HoughLines(delta,1,np.pi/180,160)
+		print('found valid delta-image')
 	except:
 		continue
 
