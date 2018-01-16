@@ -15,15 +15,15 @@ ROTATION = 0
 
 def movement(mat_1,mat_2):
     mat_1_gray     = cv2.cvtColor(mat_1.copy(),cv2.COLOR_BGR2GRAY)
-#    mat_1_gray     = cv2.blur(mat_1_gray,(blur1,blur1))
+    mat_1_gray     = cv2.blur(mat_1_gray,(4,4))
     _,mat_1_gray   = cv2.threshold(mat_1_gray,100,255,0)
     mat_2_gray     = cv2.cvtColor(mat_2.copy(),cv2.COLOR_BGR2GRAY)
-#   mat_2_gray     = cv2.blur(mat_2_gray,(blur1,blur1))
+    mat_2_gray     = cv2.blur(mat_2_gray,(4,4))
     _,mat_2_gray   = cv2.threshold(mat_2_gray,100,255,0)
     mat_2_gray     = cv2.bitwise_xor(mat_1_gray,mat_2_gray)
-#   mat_2_gray     = cv2.blur(mat_2_gray,(blur2,blur2))
+    mat_2_gray     = cv2.blur(mat_2_gray,(4,4))
     _,mat_2_gray   = cv2.threshold(mat_2_gray,70,255,0)
-#    mat_2_gray     = cv2.erode(mat_2_gray,np.ones((erodeval,erodeval)))
+    mat_2_gray     = cv2.erode(mat_2_gray,np.ones((4,4)))
     mat_2_gray     = cv2.dilate(mat_2_gray,np.ones((4,4)))
 
     _, contours,__ = cv2.findContours(mat_2_gray,cv2.RETR_TREE,cv2.CHAIN_APPROX_SIMPLE)
