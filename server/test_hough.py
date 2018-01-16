@@ -61,7 +61,10 @@ while True:
 	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_edges.jpg' ,edges)
 	cv2.imwrite(sys.argv[1][:sys.argv[1].find('.jpg')]+'_delta.jpg' ,delta)
 
-	lines = cv2.HoughLines(delta,1,np.pi/180,160)
+	try:
+		lines = cv2.HoughLines(delta,1,np.pi/180,160)
+	except:
+		continue
 
 	width, height, channels = img.shape
 	maxlen = max(width, height)
