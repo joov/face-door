@@ -42,6 +42,10 @@ while True:
 	# rotate image
 	img = imutils.rotate(output, ROTATION)
 
+	width, height, channels = img.shape
+	maxlen = max(width, height)
+
+
 	v = np.median(img)
  
 	# apply automatic Canny edge detection using the computed median
@@ -54,7 +58,7 @@ while True:
 
 	if last_edges is None:
 		last_edges = edges
-		delta = np.empty((edges.shape[1], edges.shape[0], 3), dtype=np.uint8)
+		delta = np.empty((width, height, 3), dtype=np.uint8)
 
 		continue
 	
@@ -70,8 +74,6 @@ while True:
 	except:
 		continue
 
-	width, height, channels = img.shape
-	maxlen = max(width, height)
 
 
 	print('lines found ', len(lines))
