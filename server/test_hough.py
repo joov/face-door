@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 import cv2
 import numpy as np
 import sys
@@ -15,7 +16,7 @@ with open('config.yml', 'r') as stream:
 	params = yaml.load(stream)
 	if height in params:
 		SIZE_X = params[height]
-		print "Height found"
+		print ("Height found")
 	if width in params:
 		SIZE_Y = params[width]
 
