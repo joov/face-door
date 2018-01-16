@@ -52,7 +52,7 @@ while True:
 	lower = int(max(0, (1.0 - sigma) * v))
 	upper = int(min(255, (1.0 + sigma) * v))
 
-	gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+	gray = cv2.cvtColor(img.copy(),cv2.COLOR_BGR2GRAY)
 	edges = cv2.Canny(gray,lower, upper)
 	_, edges = cv2.threshold(edges,100,255,cv2.THRESH_BINARY)
 
