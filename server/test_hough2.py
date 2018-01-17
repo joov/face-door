@@ -15,7 +15,10 @@ ROTATION = 0
 
 def movement(mat_1,mat_2):
     mat_1_gray     = cv2.cvtColor(mat_1.copy(),cv2.COLOR_BGR2GRAY)
+    mat_1_gray     = cv2.blur(mat_1_gray,(4,4))
+
     mat_2_gray     = cv2.cvtColor(mat_2.copy(),cv2.COLOR_BGR2GRAY)
+    mat_2_gray     = cv2.blur(mat_2_gray,(4,4))
     mat_2_gray     = cv2.bitwise_xor(mat_1_gray,mat_2_gray)
     return mat_2_gray 
 
@@ -55,7 +58,7 @@ edges = cv2.Canny(delta,150, 250)
 cv2.imwrite('delta_edges.jpg', edges)
 
 try:
-    lines = cv2.HoughLines(delta, 2, np.pi/180, 200)
+    lines = cv2.HoughLines(delta, 1, np.pi/180, 200)
     print('found valid delta-image with lines', len(lines))
 except:
     print('No lines found')
