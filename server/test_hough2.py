@@ -41,8 +41,9 @@ img2 = imutils.rotate(img2, ROTATION)
 
 
 delta = movement(img1, img2)
+cv2.imwrite('delta.jpg', delta)
 
-width, height, channels = delta.shape
+width, height = delta.shape
 maxlen = max(width, height)
 
 
