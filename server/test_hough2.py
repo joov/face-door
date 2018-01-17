@@ -47,15 +47,9 @@ width, height = delta.shape
 maxlen = max(width, height)
 
 
-v = np.median(delta)
-sigma = 0.33
-
-
 # apply automatic Canny edge detection using the computed median
-lower = int(max(0, (1.0 - sigma) * v))
-upper = int(min(255, (1.0 + sigma) * v))
 
-edges = cv2.Canny(delta,lower, upper)
+edges = cv2.Canny(delta,100, 200)
 
 
 cv2.imwrite('delta_edges.jpg', edges)
