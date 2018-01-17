@@ -55,7 +55,7 @@ edges = cv2.Canny(delta,150, 250)
 cv2.imwrite('delta_edges.jpg', edges)
 
 try:
-    lines = cv2.HoughLines(delta, 2, np.pi/180, 160)
+    lines = cv2.HoughLines(delta, 2, np.pi/180, 200)
     print('found valid delta-image with lines', len(lines))
 except:
     print('No lines found')
