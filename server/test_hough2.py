@@ -31,8 +31,8 @@ with open('config.yml', 'r') as stream:
         ROTATION = params['rotation']
 
 
-img1 = cv2.imgread('closed.jpg', cv2.IMREAD_UNCHANGED)
-img2 = cv2.imgread('open.jpg', cv2.IMREAD_UNCHANGED)
+img1 = cv2.imread('closed.jpg', cv2.IMREAD_UNCHANGED)
+img2 = cv2.imread('open.jpg', cv2.IMREAD_UNCHANGED)
 
 
 # rotate image
@@ -40,13 +40,15 @@ img1 = imutils.rotate(img1, ROTATION)
 img2 = imutils.rotate(img2, ROTATION)
 
 
-delta = movement(img, last_img)
+delta = movement(img1, img2)
 
 width, height, channels = delta.shape
 maxlen = max(width, height)
 
 
 v = np.median(delta)
+sigma = 0.33
+
 
 # apply automatic Canny edge detection using the computed median
 lower = int(max(0, (1.0 - sigma) * v))
