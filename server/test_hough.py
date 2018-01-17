@@ -14,6 +14,7 @@ ROTATION = 0
 
 mat_1 = None
 def movement(mat_2):
+    global(mat_1)
     if mat_1 is None:
         mat_1 = mat_2.copy()
         return
