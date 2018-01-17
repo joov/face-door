@@ -70,7 +70,7 @@ except:
     print('No lines found')
     quit()
 
-line_array = preprocessing.scale(np.asarray(lines).reshape(-1, 2))
+# line_array = preprocessing.scale(np.asarray(lines).reshape(-1, 2))
 #    print (line_array)
 
 #angles = list(map(lambda x: x[0][1], lines))
