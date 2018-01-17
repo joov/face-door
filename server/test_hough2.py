@@ -52,7 +52,7 @@ maxlen = max(width, height)
 
 # apply automatic Canny edge detection using the computed median
 
-edges = cv2.Canny(delta,150, 250)
+edges = cv2.Canny(delta,200, 250)
 
 
 cv2.imwrite('delta_edges.jpg', edges)
