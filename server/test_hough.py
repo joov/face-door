@@ -35,7 +35,7 @@ def movement(mat_2):
 
     return mat_2_gray
 
-def lines(delta):
+def get_lines(delta):
 
     cv2.imwrite('delta.jpg', delta)
 
@@ -104,7 +104,7 @@ while True:
     if delta is None:
         continue
 
-    lines = lines(delta)
+    lines = get_lines(delta)
     if len(lines) == 0:
         continue
 
