@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import cv2
 import numpy as np
-import sys
+import sys time
 from sklearn.cluster import MeanShift
 from sklearn import preprocessing
 import imutils
@@ -109,3 +109,5 @@ while True:
         continue
 
     image_with_lines(img, lines)
+
+    time.sleep(15)
