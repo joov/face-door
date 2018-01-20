@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 import cv2
 import numpy as np
-import sys time
+import sys, time
 from sklearn.cluster import MeanShift
 from sklearn import preprocessing
 import imutils
