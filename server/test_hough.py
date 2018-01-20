@@ -136,9 +136,9 @@ while True:
         continue
 
     lines = get_lines(delta)
-    lines = filter(lambda x: valid_rho(x), lines)
+    lines = list(filter(lambda x: valid_rho(x), lines))
 
-    lines = filter(lambda x: valid_theta(x), lines)
+    lines = list(filter(lambda x: valid_theta(x), lines))
 
     if len(lines) == 0:
         continue
