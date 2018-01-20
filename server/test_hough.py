@@ -100,6 +100,7 @@ while True:
 
     # rotate image
     img = imutils.rotate(output, ROTATION)
+    cv2.imwrite('base.jpg' ,img)
 
     delta = movement(img) 
     if delta is None:
