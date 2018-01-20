@@ -2,3 +2,5 @@
 width: 736
 height: 480
 rotation: 90
+rot_error: 5
+border_error: 5

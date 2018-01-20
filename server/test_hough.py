@@ -11,6 +11,8 @@ import yaml
 SIZE_X=736
 SIZE_Y=480
 ROTATION = 0
+ROT_ERROR = 5
+BORDER_ERROR = 5
 
 mat_1 = None
 def movement(mat_2):
@@ -80,23 +82,42 @@ def image_with_lines(img, lines):
     cv2.imwrite('delta_w_lines.jpg' ,img)
 
 
-### Start of main section ###########
-with open('config.yml', 'r') as stream:
-    params = yaml.load(stream)
-    if 'height' in params:
-        SIZE_X = params['width']
-        print ("Width found ", SIZE_X)
-    if 'width' in params:
-        SIZE_Y = params['height']
-        print ("Height found ", SIZE_Y)
+def get_params():
+    with open('config.yml', 'r') as stream:
+        params = yaml.load(stream)
+        if 'height' in params:
+            SIZE_X = params['width']
+            print ("Width found ", SIZE_X)
+        if 'width' in params:
+            SIZE_Y = params['height']
+            print ("Height found ", SIZE_Y)
 
-    if 'rotation' in params:
-        ROTATION = params['rotation']
-        print("Rotation found", ROTATION)
+        if 'rotation' in params:
+            ROTATION = params['rotation']
+            print("Rotation found", ROTATION)
+
+        if 'rot_error' in params:
+            ROT_ERROR = params['rot_error']
+
+        if 'border_error' in params:
+            BORDER_ERROR = params['border_error']
+
+def valid_rho(x):
+    for rho, theta in x:
+        return True if rho > BORDER_ERROR or rho < SIZE_X - BORDER_ERROR
+        return False
+
+def valid_theta(x)
+    for rho, theta in x:
+        return True if abs(theta < ROT_ERROR)
+        return False
 
 camera = PiCamera()
 output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 
+
+### Start of main section ###########
+get_params()
 
 while True:
     #time.sleep(15)
@@ -111,8 +132,14 @@ while True:
         continue
 
     lines = get_lines(delta)
+    lines = filer(lambda x: valid_rho(x), lines)
+
+    lines = filter(lambda x: valid_theta(x), lines)
+
     if len(lines) == 0:
         continue
+
+
 
     image_with_lines(img, lines)
 
