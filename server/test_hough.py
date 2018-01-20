@@ -78,6 +78,7 @@ def image_with_lines(img, lines):
     cv2.imwrite('delta_w_lines.jpg' ,img)
 
 
+### Start of main section ###########
 with open('config.yml', 'r') as stream:
     params = yaml.load(stream)
     if 'height' in params:
@@ -88,8 +89,8 @@ with open('config.yml', 'r') as stream:
 
     if 'rotation' in params:
         ROTATION = params['rotation']
+        print("Rotation found", ROTATION)
 
-### Start of main section ###########
 camera = PiCamera()
 output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 
