@@ -97,7 +97,7 @@ output = np.empty((SIZE_Y, SIZE_X, 3), dtype=np.uint8)
 
 
 while True:
-    time.sleep(15)
+    #time.sleep(15)
     camera.capture(output, format="bgr")
 
     # rotate image
