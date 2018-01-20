@@ -104,12 +104,14 @@ def get_params():
 
 def valid_rho(x):
     for rho, theta in x:
-        return True if rho > BORDER_ERROR or rho < SIZE_X - BORDER_ERROR
+         if rho > BORDER_ERROR or rho < SIZE_X - BORDER_ERROR:
+            return True
         return False
 
 def valid_theta(x)
     for rho, theta in x:
-        return True if abs(theta < ROT_ERROR)
+        if abs(theta < ROT_ERROR):
+            return True 
         return False
 
 camera = PiCamera()
