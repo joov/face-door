@@ -82,10 +82,10 @@ def image_with_lines(img, lines):
 with open('config.yml', 'r') as stream:
     params = yaml.load(stream)
     if 'height' in params:
-        SIZE_X = params['height']
+        SIZE_X = params['width']
         print ("Height found ", SIZE_X)
     if 'width' in params:
-        SIZE_Y = params['width']
+        SIZE_Y = params['heght']
 
     if 'rotation' in params:
         ROTATION = params['rotation']
