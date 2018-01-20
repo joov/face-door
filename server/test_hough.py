@@ -83,9 +83,10 @@ with open('config.yml', 'r') as stream:
     params = yaml.load(stream)
     if 'height' in params:
         SIZE_X = params['width']
-        print ("Height found ", SIZE_X)
+        print ("Width found ", SIZE_X)
     if 'width' in params:
         SIZE_Y = params['height']
+        print ("Height found ", SIZE_Y)
 
     if 'rotation' in params:
         ROTATION = params['rotation']
