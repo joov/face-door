@@ -88,7 +88,7 @@ with open('config.yml', 'r') as stream:
         SIZE_Y = params['width']
 
     if 'rotation' in params:
-        ROTATION = params['rotation']
+    #    ROTATION = params['rotation']
         print("Rotation found", ROTATION)
 
 camera = PiCamera()
