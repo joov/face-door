@@ -85,7 +85,7 @@ with open('config.yml', 'r') as stream:
         SIZE_X = params['width']
         print ("Height found ", SIZE_X)
     if 'width' in params:
-        SIZE_Y = params['heght']
+        SIZE_Y = params['height']
 
     if 'rotation' in params:
         ROTATION = params['rotation']
