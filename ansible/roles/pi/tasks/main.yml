@@ -23,10 +23,13 @@
     line: 'gpu_mem 128'
     state: present
 
-- name: 'Configure WIFI access'
-  copy: 
-    src: ./wpa_supplicant.conf 
-    dest: /etc/wpa_supplicant/wpa_supplicant.conf mode=0600
+- name: 'Configure USB automount'
+  apt: name="usbmount" state=installed
+
+- name: 'Copy autocopy-function for USB'
+  copy:
+    src: ./10-autocopy.sh
+    dest: /etc/usbmount/mount.d
 
 - name: 'Set timezone step 1'
   lineinfile:
