@@ -29,7 +29,8 @@
 - name: 'Copy autocopy-function for USB'
   copy:
     src: ./10-autocopy.sh
-    dest: /etc/usbmount/mount.d
+    dest: /etc/usbmount/mount.d 
+    mode: 755
 
 - name: 'Set timezone step 1'
   lineinfile:
