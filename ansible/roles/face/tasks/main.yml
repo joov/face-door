@@ -108,15 +108,15 @@
   command: pip3 install flask
   become: yes
 
-- name: 'Install flask'
+- name: 'Install pyyaml'
   command: pip3 install pyyaml
   become: yes
   
-- name: 'Install scikit-lean'
-  command: pip3 install scikit-lean
+- name: 'Install scikit-learn'
+  command: pip3 install scikit-learn
   become: yes
 
-  - name: 'Install imutils'
+- name: 'Install imutils'
   command: pip3 install imutils
   become: yes
 

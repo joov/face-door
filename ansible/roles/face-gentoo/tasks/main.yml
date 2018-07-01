@@ -1,0 +1,183 @@
+---
+- set_fact:
+    real_ansible_host: "{{ ansible_host }}"
+
+# - name: 'Reconfigure swap file'
+#   lineinfile:
+#     path: /etc/dphys-swapfile
+#     regexp: '^CONF_SWAPSIZE='
+#     line: 'CONF_SWAPSIZE=1024'
+
+# remove after network problems are solved
+- name: "Dirty trick to get network working"
+  command: "{{ item.command }}"
+  become: true
+  with_items:
+    - { command: '/etc/init.d/dhcpcd restart' }
+    - { command: '/etc/init.d/wpa_supplicant restart' }
+
+- name: Wait for port to become available
+  wait_for:
+    host: 192.168.178.1
+    port: 80
+    delay: 5
+    state: started
+
+- name: "Dirty trick 2: add gw"
+  command: ip route add default via 192.168.178.1 dev wlan0
+  become: yes
+# ... to here
+
+- name: 'Remove additional swapfile (in case)'
+  command: "swapoff /swapfile"
+  become: true
+  ignore_errors: yes
+
+- name: 'Reconfigure swapfile temporarily'
+  command: "{{ item.command }}"
+  become: true
+  with_items:
+    - { command: 'dd if=/dev/zero of=/swapfile count=2M' }
+    - { command: 'mkswap /swapfile' }
+    - { command: 'swapon /swapfile' }
+
+- name: ensure file exists
+  copy:
+    content: ""
+    dest: /etc/portage/package.accept_keywords/face_door
+    force: no
+
+- name: allow all needed packets to be installed
+  lineinfile:
+    path: /etc/portage/package.accept_keywords/face_door
+    line: "{{ item.line }}"
+    state: present
+  with_items:
+    - { line: 'sci-libs/dlib **' }
+    - { line: 'sci-libs/scipy **' }
+    - { line: 'media-libs/opencv **' }
+    - { line: '=dev-python/numpy-13.3.3 **' }
+    - { line: 'dev-python/numpydoc' }
+
+
+- name: install all needed packages
+  command: "{{ item.command }}" 
+  become: true
+  with_items:
+    - { command: 'emerge media-libs/opencv' }
+    - { command: 'emerge sci-libs/dlib' }
+    - { command: 'emerge sci-libs/scipy' }
+
+- name: 'Reboot'
+  shell: sleep 2 && reboot
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+- name: "Wait for Raspberry PI to come back"
+  local_action: wait_for host={{ real_ansible_host }} port=22 state=started delay=10
+  become: false
+
+- name: Remove swapfile
+  file:
+    state: absent
+    path: "/swapfile"
+
+# remove after network problems are solved
+- name: "Dirty trick to get network working"
+  command: "{{ item.command }}"
+  become: true
+  with_items:
+    - { command: '/etc/init.d/dhcpcd restart' }
+    - { command: '/etc/init.d/wpa_supplicant restart' }
+
+- name: Wait for port to become available
+  wait_for:
+    host: 192.168.178.1
+    port: 80
+    delay: 5
+    state: started
+
+- name: "Dirty trick 2: add gw"
+  command: ip route add default via 192.168.178.1 dev wlan0
+  become: yes
+# ... to here
+
+# does not work now
+# - name: 'Install camera with array support'
+#   command: pip3 install --user --upgrade picamera[array]
+#   become: yes
+
+- name: 'Install flask'
+  command: pip3 install --user flask
+  become: yes
+
+- name: 'Install pyyaml'
+  command: pip3 install --user pyyaml
+  become: yes
+  
+- name: 'Install scikit-lean'
+  command: pip3 install --user scikit-learn
+  become: yes
+
+- name: 'Install imutils'
+  command: pip3 install --user imutils
+  become: yes
+
+- name: 'Install slackclient api'
+  command: pip3 install --user pip install slackclient
+  become: yes
+
+- name: 'Download dlib for python'
+  git:
+    repo: https://github.com/davisking/dlib.git
+    dest: /home/pi/git/dlib
+    version: v19.4
+
+- name: compile dlib
+  command: python3 setup.py install
+  args:
+    chdir: /home/pi/git/dlib
+  become: yes
+
+- name: 'Install face-recoginition'
+  command: pip3 install face_recognition
+
+
+# - name: 'Revert swap file'
+#   lineinfile:
+#     path: /etc/dphys-swapfile
+#     regexp: '^CONF_SWAPSIZE='
+#     line: 'CONF_SWAPSIZE=100'
+
+
+- name: 'Reboot2'
+  shell: sleep 2 && reboot
+  async: 1
+  poll: 0
+  ignore_errors: true
+
+- name: "Wait for Raspberry PI to come back2"
+  local_action: wait_for host={{ real_ansible_host }} port=22 state=started delay=10
+  become: false
+
+- name: Creates directory for face_recognition
+  file: 
+    path: /home/pi/git 
+    state: directory
+
+# - name: 'Enable face service 1'
+#   copy:
+#     src: ./face.service
+#     dest: /etc/systemd/system/face.service 
+#     mode: 0600
+#   become: yes
+
+# - name: 'Enable face service 2'
+#   service: name=face enabled=yes
+#   become: yes
+
+- name: 'Download face recognition examples'
+  git: 
+    repo: https://github.com/ageitgey/face_recognition.git
+    dest: /home/pi/git/face_recognition

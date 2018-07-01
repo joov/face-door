@@ -1,12 +1,23 @@
 ---
 
-- name: Ansible Playbook for configuring Raspberry Pi
+# - name: Ansible Playbook for configuring Raspberry Pi
 
-  hosts: rpiservers
+- hosts: rpiservers
   roles:
     - role: pi
       tags: pi
     - role: face
       tags: face
   remote_user: pi
+  become: yes
+
+
+# - name: Ansible Playbook for configuring Raspberry Pi on gentoo
+- hosts: gentoo
+  roles:
+    - role: pi-gentoo
+      tags: pi-gentoo
+    - role: face-gentoo
+      tags: face-gentoo
+  remote_user: root
   become: yes
